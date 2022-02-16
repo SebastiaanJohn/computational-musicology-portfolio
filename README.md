@@ -9,7 +9,9 @@ Spotify holds all (and only) the studio albums of Kanye West; hence I don't susp
 
 ## Typical Tracks
 1. Kanye West - Heartless (808s & Heartbreak)
+  One of the most iconic Kanye West tracks. Lots of auto tune and minimalistic songwriting. This is probably the era of Kanye tracks that most people remember. 
 2. Kanye West - Bound 2 (Yeezus)
+  
 
 ## Atypical Tracks
 1. Kanye West, Sunday Service Choir - Every Hour (Jesus is King)
