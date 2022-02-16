@@ -8,11 +8,10 @@ One of the most significant comparison points would be the **discrepancies betwe
 Spotify holds all (and only) the studio albums of Kanye West; hence I don't suspect there will be any significant limitations.
 
 ## Typical Tracks
-1. Kanye West - Heartless (808s & Heartbreak)
-  One of the most iconic Kanye West tracks. Lots of auto tune and minimalistic songwriting. This is probably the era of Kanye tracks that most people remember. 
-2. Kanye West - Bound 2 (Yeezus)
+1. Kanye West - Heartless (808s & Heartbreak): One of the most iconic Kanye West tracks. Lots of auto tune and minimalistic songwriting. This is probably the era of Kanye tracks that most people remember.
+2. Kanye West - Bound 2 (Yeezus): Very different track from the rest of Yeezus, however, still very typical Kanye West. 
   
 
 ## Atypical Tracks
-1. Kanye West, Sunday Service Choir - Every Hour (Jesus is King)
-2. Kanye West - I Thought About Killing You (ye)
+1. Kanye West, Sunday Service Choir - Every Hour (Jesus is King): A big departure from previous work. Jesus is King is a gospel album, with the first track _Every Hour_ being in a very different style then done before.
+2. Kanye West - I Thought About Killing You (ye): Very slow song that is in sharp contrast to the bass heavy tracks released earlier by Kanye.
