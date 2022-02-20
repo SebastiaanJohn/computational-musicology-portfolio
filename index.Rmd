@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r libraries}
+```{r libraries, include=FALSE}
 library(dplyr)
 library(spotifyr)
 library(tidyverse)
@@ -18,15 +18,24 @@ library(lubridate)
 library(ggplot2)
 ```
 
-```{r}
+```{r, include=FALSE}
 kanye <- get_artist_audio_features("kanye west")
 # remove non-deluxe album versions to remove duplicates
 kanye <- kanye[!(kanye$album_name == "Watch The Throne" | kanye$album_name == "Donda"), ]
 ```
 
 
-### TEST HEADER 1
-```{r}
+### Kanye's style progression over the years.
+
+Kanye West's albums have seen a significant shift in style over the years. Especially in his latest works, such as __Ye__ and __Jesus is King__, which are a lot slower and differ a lot from the explosive sounds of __Yeezus__ and __Watch the Throne__. To get a better feel of how much his style changed, we will look at his albums' **danceability** and **energy** values. The values come from the Spotify API and are described as follows: 
+
+__"Danceability describes how suitable a track is for dancing based on a combination of musical elements, including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable, and 1.0 is the most danceable."__
+
+__"Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy."__
+
+Looking at the plot below, both the **danceability** and **energy** have dropped significantly in the last couple of years. 
+
+```{r, include=FALSE}
 style_progression <- kanye %>%
   group_by(album_name, album_release_year) %>%
   summarize(
@@ -34,7 +43,7 @@ style_progression <- kanye %>%
     avgEnergy = mean(energy)
     )
 
-ggplot(style_progression, aes(x=album_release_year)) +
+plot1 <- ggplot(style_progression, aes(x=album_release_year)) +
   geom_smooth(aes(y = avgDanceability, color = "Danceability"), se=FALSE) +
   geom_smooth(aes(y = avgEnergy, color = "Energy"), se=FALSE) +
   labs(x = "Year",
@@ -42,5 +51,9 @@ ggplot(style_progression, aes(x=album_release_year)) +
        color = "Legend",
        title = "Danceability & Energy progression of Kanye West albums through the years."
        )
+```
+
+```{r plot, message=FALSE}
+plot1
 ```
 
