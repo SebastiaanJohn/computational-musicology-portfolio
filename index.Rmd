@@ -5,6 +5,7 @@ date: 'March 2022'
 output: 
   flexdashboard::flex_dashboard:
     storyboard: true
+    css: styles.css
     theme: cosmo
     self_contained: false
     navbar:
