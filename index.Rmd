@@ -32,7 +32,7 @@ kanye <- kanye[!(kanye$album_name == "Watch The Throne" | kanye$album_name == "D
 ```
 
 
-### Introduction: The Evolution of Kanye West
+### Introduction: The Evolution of Kanye West {.bg-primary}
 
 I chose **Kanye West's** music because of his **progression in style** from his first studio album _The College Dropout_, to his more recent work of _Donda_ and _Jesus is King_ is remarkable. I have yet to find an artist who changes his style that much from album to album and **successfully keeps reinventing himself**. Hence I find it very interesting to base my research on him. In addition, I find it very interesting how he uses different techniques and forms of traditional music with technology and explores philosophical ideas through his lyrics, which are often thought-provoking for those who listen closely enough to hear them.
 
