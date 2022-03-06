@@ -7,6 +7,8 @@ output:
     storyboard: true
     theme: cosmo
     self_contained: false
+    navbar:
+      - { title: "Github", href: "https://github.com/SebastiaanJohn/computational-musicology-portfolio", align: right, icon: icon-github}
 ---
 
 ```{r setup, include=FALSE}
