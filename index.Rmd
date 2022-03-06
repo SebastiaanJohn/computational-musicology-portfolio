@@ -22,6 +22,7 @@ library(tidyverse)
 library(knitr)
 library(lubridate)
 library(ggplot2)
+library(compmus)
 ```
 
 ```{r, include=FALSE}
@@ -89,3 +90,91 @@ __"Danceability describes how suitable a track is for dancing based on a combina
 __"Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy."__
 
 Looking at the plot below, both the **danceability** and **energy** have dropped significantly in the last couple of years. 
+
+### Chroma & Timbre (title wip)
+
+``` {r self-sim-matrix, echo=FALSE}
+jesus_walks <-
+  get_tidy_audio_analysis("5g1vtHqi9uV7xtYeCcFOBx") %>% 
+  compmus_align(bars, segments) %>%                    
+  select(bars) %>%                                      
+  unnest(bars) %>%                                      
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "rms", norm = "euclidean"              
+      )
+  ) %>%
+  mutate(
+    timbre =
+      map(segments,
+        compmus_summarise, timbre,
+        method = "rms", norm = "euclidean"              
+      )
+  )
+
+jesus_walks_live <-
+  get_tidy_audio_analysis("1vJvwNUE99zqvu62iKCzJd") %>% 
+  compmus_align(bars, segments) %>%                    
+  select(bars) %>%                                      
+  unnest(bars) %>%                                      
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "rms", norm = "euclidean"              
+      )
+  ) %>%
+  mutate(
+    timbre =
+      map(segments,
+        compmus_summarise, timbre,
+        method = "rms", norm = "euclidean"              
+      )
+  )
+```
+
+``` {r self-sim-matrix plot, echo=FALSE}
+jesus_walks %>%
+  compmus_self_similarity(pitches, "cosine") %>% 
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_fixed() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_classic() +
+  labs(x = "", y = "")
+
+jesus_walks_live %>%
+  compmus_self_similarity(timbre, "cosine") %>% 
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_fixed() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_classic() +
+  labs(x = "", y = "")
+
+```
+
+***
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5g1vtHqi9uV7xtYeCcFOBx?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1vJvwNUE99zqvu62iKCzJd?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+
