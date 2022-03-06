@@ -6,6 +6,7 @@ output:
   flexdashboard::flex_dashboard:
     storyboard: true
     theme: cosmo
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
@@ -49,6 +50,7 @@ Spotify holds all the studio albums of Kanye West; hence I don't suspect there w
 
 2. Kanye West - I Thought About Killing You (ye): Very slow song that is in sharp contrast to the bass heavy tracks released earlier by Kanye.
 
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO3nMr04?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 ### Kanye's style progression over the years.
 
