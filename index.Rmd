@@ -2,7 +2,10 @@
 title: "Computational Musicology Portfolio"
 author: "Sebastiaan Dijkstra"
 date: '2022-02-19'
-output: html_document
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true
+    theme: cosmo
 ---
 
 ```{r setup, include=FALSE}
