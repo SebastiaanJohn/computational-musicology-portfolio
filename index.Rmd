@@ -105,16 +105,17 @@ jesus_walks <-
     pitches =
       map(segments,
         compmus_summarise, pitches,
-        method = "rms", norm = "euclidean"              
+        method = "acentre", norm = "manhattan"              
       )
   ) %>%
   mutate(
     timbre =
       map(segments,
         compmus_summarise, timbre,
-        method = "rms", norm = "euclidean"              
+        method = "mean"   
       )
   )
+
 jesus_walks_live <-
   get_tidy_audio_analysis("1vJvwNUE99zqvu62iKCzJd") %>% 
   compmus_align(bars, segments) %>%                    
@@ -124,18 +125,19 @@ jesus_walks_live <-
     pitches =
       map(segments,
         compmus_summarise, pitches,
-        method = "rms", norm = "euclidean"              
+        method = "acentre", norm = "manhattan"              
       )
   ) %>%
   mutate(
     timbre =
       map(segments,
         compmus_summarise, timbre,
-        method = "rms", norm = "euclidean"              
+        method = "mean"          
       )
   )
+
 jw_chroma <- jesus_walks %>%
-  compmus_self_similarity(pitches, "manhattan") %>% 
+  compmus_self_similarity(pitches, "aitchison") %>% 
   ggplot(
     aes(
       x = xstart + xduration / 2,
@@ -149,9 +151,15 @@ jw_chroma <- jesus_walks %>%
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
   theme_classic() +
-  labs(x = "", y = "")
+  labs(
+    x = "Time (samples)", 
+    y = "Time (samples)",
+    title = "Chroma",
+    subtitle = "Jesus Walks"
+    )
+
 jw_timbre <- jesus_walks %>%
-  compmus_self_similarity(timbre, "cosine") %>% 
+  compmus_self_similarity(timbre, "euclidean") %>% 
   ggplot(
     aes(
       x = xstart + xduration / 2,
@@ -165,9 +173,15 @@ jw_timbre <- jesus_walks %>%
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
   theme_classic() +
-  labs(x = "", y = "")
+  labs(
+    x = "Time (samples)", 
+    y = "Time (samples)",
+    title = "Timbre",
+    subtitle = "Jesus Walks"
+    )
+
 jwl_chroma <- jesus_walks_live %>%
-  compmus_self_similarity(pitches, "manhattan") %>% 
+  compmus_self_similarity(pitches, "aitchison") %>% 
   ggplot(
     aes(
       x = xstart + xduration / 2,
@@ -181,9 +195,15 @@ jwl_chroma <- jesus_walks_live %>%
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
   theme_classic() +
-  labs(x = "", y = "")
+  labs(
+    x = "Time (samples)", 
+    y = "Time (samples)",
+    title = "Chroma",
+    subtitle = "Jesus Walks (Live)"
+    )
+
 jwl_timbre <- jesus_walks_live %>%
-  compmus_self_similarity(timbre, "cosine") %>% 
+  compmus_self_similarity(timbre, "euclidean") %>% 
   ggplot(
     aes(
       x = xstart + xduration / 2,
@@ -197,12 +217,17 @@ jwl_timbre <- jesus_walks_live %>%
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
   theme_classic() +
-  labs(x = "", y = "")
+  labs(
+    x = "Time (samples)", 
+    y = "Time (samples)",
+    title = "Timbre",
+    subtitle = "Jesus Walks (Live)"
+    )
 
 par(mar = c(4, 4, .1, .1))
 plot(jw_chroma)
-plot(jw_timbre)
 plot(jwl_chroma)
+plot(jw_timbre)
 plot(jwl_timbre)
 ```
 
