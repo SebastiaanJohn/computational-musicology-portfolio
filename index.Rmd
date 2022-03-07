@@ -23,6 +23,8 @@ library(knitr)
 library(lubridate)
 library(ggplot2)
 library(compmus)
+library(gtable)
+library(grid)
 ```
 
 ```{r, include=FALSE}
@@ -93,7 +95,7 @@ Looking at the plot below, both the **danceability** and **energy** have dropped
 
 ### Chroma & Timbre (title wip)
 
-``` {r, self-sim-matrix, echo=FALSE}
+``` {r, self-sim-matrix, fig.show="hold", out.width="50%", echo=FALSE}
 jesus_walks <-
   get_tidy_audio_analysis("5g1vtHqi9uV7xtYeCcFOBx") %>% 
   compmus_align(bars, segments) %>%                    
@@ -113,7 +115,6 @@ jesus_walks <-
         method = "rms", norm = "euclidean"              
       )
   )
-
 jesus_walks_live <-
   get_tidy_audio_analysis("1vJvwNUE99zqvu62iKCzJd") %>% 
   compmus_align(bars, segments) %>%                    
@@ -133,7 +134,6 @@ jesus_walks_live <-
         method = "rms", norm = "euclidean"              
       )
   )
-
 jw_chroma <- jesus_walks %>%
   compmus_self_similarity(pitches, "manhattan") %>% 
   ggplot(
@@ -150,7 +150,6 @@ jw_chroma <- jesus_walks %>%
   scale_fill_viridis_c(guide = "none") +
   theme_classic() +
   labs(x = "", y = "")
-
 jw_timbre <- jesus_walks %>%
   compmus_self_similarity(timbre, "cosine") %>% 
   ggplot(
@@ -167,7 +166,6 @@ jw_timbre <- jesus_walks %>%
   scale_fill_viridis_c(guide = "none") +
   theme_classic() +
   labs(x = "", y = "")
-
 jwl_chroma <- jesus_walks_live %>%
   compmus_self_similarity(pitches, "manhattan") %>% 
   ggplot(
@@ -184,7 +182,6 @@ jwl_chroma <- jesus_walks_live %>%
   scale_fill_viridis_c(guide = "none") +
   theme_classic() +
   labs(x = "", y = "")
-
 jwl_timbre <- jesus_walks_live %>%
   compmus_self_similarity(timbre, "cosine") %>% 
   ggplot(
@@ -202,7 +199,7 @@ jwl_timbre <- jesus_walks_live %>%
   theme_classic() +
   labs(x = "", y = "")
 
-par(mfrow = c(2, 2))
+par(mar = c(4, 4, .1, .1))
 plot(jw_chroma)
 plot(jw_timbre)
 plot(jwl_chroma)
