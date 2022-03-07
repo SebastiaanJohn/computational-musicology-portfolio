@@ -93,7 +93,7 @@ Looking at the plot below, both the **danceability** and **energy** have dropped
 
 ### Chroma & Timbre (title wip)
 
-``` {r self-sim-matrix, echo=FALSE}
+``` {r, self-sim-matrix, echo=FALSE}
 jesus_walks <-
   get_tidy_audio_analysis("5g1vtHqi9uV7xtYeCcFOBx") %>% 
   compmus_align(bars, segments) %>%                    
@@ -133,11 +133,9 @@ jesus_walks_live <-
         method = "rms", norm = "euclidean"              
       )
   )
-```
 
-``` {r self-sim-matrix plot, echo=FALSE}
-jesus_walks %>%
-  compmus_self_similarity(pitches, "cosine") %>% 
+jw_chroma <- jesus_walks %>%
+  compmus_self_similarity(pitches, "manhattan") %>% 
   ggplot(
     aes(
       x = xstart + xduration / 2,
@@ -153,7 +151,7 @@ jesus_walks %>%
   theme_classic() +
   labs(x = "", y = "")
 
-jesus_walks_live %>%
+jw_timbre <- jesus_walks %>%
   compmus_self_similarity(timbre, "cosine") %>% 
   ggplot(
     aes(
@@ -170,6 +168,45 @@ jesus_walks_live %>%
   theme_classic() +
   labs(x = "", y = "")
 
+jwl_chroma <- jesus_walks_live %>%
+  compmus_self_similarity(pitches, "manhattan") %>% 
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_fixed() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_classic() +
+  labs(x = "", y = "")
+
+jwl_timbre <- jesus_walks_live %>%
+  compmus_self_similarity(timbre, "cosine") %>% 
+  ggplot(
+    aes(
+      x = xstart + xduration / 2,
+      width = xduration,
+      y = ystart + yduration / 2,
+      height = yduration,
+      fill = d
+    )
+  ) +
+  geom_tile() +
+  coord_fixed() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_classic() +
+  labs(x = "", y = "")
+
+par(mfrow = c(2, 2))
+plot(jw_chroma)
+plot(jw_timbre)
+plot(jwl_chroma)
+plot(jwl_timbre)
 ```
 
 ***
