@@ -33,66 +33,6 @@ kanye <- get_artist_audio_features("kanye west")
 kanye <- kanye[!(kanye$album_name == "Watch The Throne" | kanye$album_name == "Donda"), ]
 ```
 
-
-### Introduction: The Evolution of Kanye West
-
-I chose **Kanye West's** music because of his **progression in style** from his first studio album _The College Dropout_, to his more recent work of _Donda_ and _Jesus is King_ is remarkable. I have yet to find an artist who changes his style that much from album to album and **successfully keeps reinventing himself**. Hence I find it very interesting to base my research on him. In addition, I find it very interesting how he uses different techniques and forms of traditional music with technology and explores philosophical ideas through his lyrics, which are often thought-provoking for those who listen closely enough to hear them.
-
-One of the most significant comparison points would be the **discrepancies between the various albums**. For instance, what attributes made each album feel so distinct but at the same time still recognize that it is a Kanye West album. I would think that the instruments and tempo are relatively different between his first and latest work. Furthermore, his lyrics have changed a lot over the decades, such as not swearing anymore, so I presume there could also be some interesting findings. 
-
-Spotify holds all the studio albums of Kanye West; hence I don't suspect there will be any significant limitations.
-
-**Typical Tracks:**
-
-1. Kanye West - Heartless (808s & Heartbreak): One of the most iconic Kanye West tracks. Lots of auto tune and minimalistic songwriting. This is probably the era of Kanye tracks that most people remember.
-
-2. Kanye West - Bound 2 (Yeezus): Very different track from the rest of Yeezus, however, still very typical Kanye West. 
-  
-
-**Atypical Tracks:**
-
-1. Kanye West, Sunday Service Choir - Every Hour (Jesus is King): A big departure from previous work. Jesus is King is a gospel album, with the first track _Every Hour_ being in a very different style then done before.
-
-2. Kanye West - I Thought About Killing You (ye): Very slow song that is in sharp contrast to the bass heavy tracks released earlier by Kanye.
-
-*** 
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO3nMr04?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2Wiyo7LzdeBCsVZiRA6vVZ?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-### Kanye's style progression over the years.
-
-```{r, include=FALSE}
-style_progression <- kanye %>%
-  group_by(album_name, album_release_year) %>%
-  summarize(
-    avgDanceability = mean(danceability),
-    avgEnergy = mean(energy)
-    )
-
-plot1 <- ggplot(style_progression, aes(x=album_release_year)) +
-  geom_smooth(aes(y = avgDanceability, color = "Danceability"), se=FALSE) +
-  geom_smooth(aes(y = avgEnergy, color = "Energy"), se=FALSE) +
-  labs(x = "Year",
-       y = "Value",
-       color = "Legend",
-       title = "Danceability & Energy progression of Kanye West albums through the years."
-       )
-```
-
-```{r plot, message=FALSE, echo=FALSE}
-plot1
-```
-
-***
-Kanye West's albums have seen a significant shift in style over the years. Especially in his latest works, such as __Ye__ and __Jesus is King__, which are a lot slower and differ a lot from the explosive sounds of __Yeezus__ and __Watch the Throne__. To get a better feel of how much his style changed, we will look at his albums' **danceability** and **energy** values. The values come from the Spotify API and are described as follows: 
-
-__"Danceability describes how suitable a track is for dancing based on a combination of musical elements, including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable, and 1.0 is the most danceable."__
-
-__"Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy."__
-
-Looking at the plot below, both the **danceability** and **energy** have dropped significantly in the last couple of years. 
-
 ### Chroma & Timbre (title wip)
 
 ``` {r, self-sim-matrix, fig.show="hold", out.width="50%", echo=FALSE}
@@ -236,4 +176,66 @@ plot(jwl_timbre)
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1vJvwNUE99zqvu62iKCzJd?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
+The following self-similarity matrices show pitch and timbre-based self-similarity from two interpretations of the same song by Kanye West. The difference between the songs is that one is performed live and the other in a studio.
+
+
+
+### Introduction: The Evolution of Kanye West
+
+I chose **Kanye West's** music because of his **progression in style** from his first studio album _The College Dropout_, to his more recent work of _Donda_ and _Jesus is King_ is remarkable. I have yet to find an artist who changes his style that much from album to album and **successfully keeps reinventing himself**. Hence I find it very interesting to base my research on him. In addition, I find it very interesting how he uses different techniques and forms of traditional music with technology and explores philosophical ideas through his lyrics, which are often thought-provoking for those who listen closely enough to hear them.
+
+One of the most significant comparison points would be the **discrepancies between the various albums**. For instance, what attributes made each album feel so distinct but at the same time still recognize that it is a Kanye West album. I would think that the instruments and tempo are relatively different between his first and latest work. Furthermore, his lyrics have changed a lot over the decades, such as not swearing anymore, so I presume there could also be some interesting findings. 
+
+Spotify holds all the studio albums of Kanye West; hence I don't suspect there will be any significant limitations.
+
+**Typical Tracks:**
+
+1. Kanye West - Heartless (808s & Heartbreak): One of the most iconic Kanye West tracks. Lots of auto tune and minimalistic songwriting. This is probably the era of Kanye tracks that most people remember.
+
+2. Kanye West - Bound 2 (Yeezus): Very different track from the rest of Yeezus, however, still very typical Kanye West. 
+  
+
+**Atypical Tracks:**
+
+1. Kanye West, Sunday Service Choir - Every Hour (Jesus is King): A big departure from previous work. Jesus is King is a gospel album, with the first track _Every Hour_ being in a very different style then done before.
+
+2. Kanye West - I Thought About Killing You (ye): Very slow song that is in sharp contrast to the bass heavy tracks released earlier by Kanye.
+
+*** 
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO3nMr04?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2Wiyo7LzdeBCsVZiRA6vVZ?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+### Kanye's style progression over the years.
+
+```{r, include=FALSE}
+style_progression <- kanye %>%
+  group_by(album_name, album_release_year) %>%
+  summarize(
+    avgDanceability = mean(danceability),
+    avgEnergy = mean(energy)
+    )
+
+plot1 <- ggplot(style_progression, aes(x=album_release_year)) +
+  geom_smooth(aes(y = avgDanceability, color = "Danceability"), se=FALSE) +
+  geom_smooth(aes(y = avgEnergy, color = "Energy"), se=FALSE) +
+  labs(x = "Year",
+       y = "Value",
+       color = "Legend",
+       title = "Danceability & Energy progression of Kanye West albums through the years."
+       )
+```
+
+```{r plot, message=FALSE, echo=FALSE}
+plot1
+```
+
+***
+Kanye West's albums have seen a significant shift in style over the years. Especially in his latest works, such as __Ye__ and __Jesus is King__, which are a lot slower and differ a lot from the explosive sounds of __Yeezus__ and __Watch the Throne__. To get a better feel of how much his style changed, we will look at his albums' **danceability** and **energy** values. The values come from the Spotify API and are described as follows: 
+
+__"Danceability describes how suitable a track is for dancing based on a combination of musical elements, including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable, and 1.0 is the most danceable."__
+
+__"Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy."__
+
+Looking at the plot below, both the **danceability** and **energy** have dropped significantly in the last couple of years. 
 
