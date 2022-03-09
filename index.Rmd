@@ -182,7 +182,11 @@ The following self-similarity matrices show pitch and timbre-based self-similari
 
 ### Introduction: The Evolution of Kanye West
 
+**Introduction**
+
 The subject of this portfolio is the discography of the rapper, producer, and fashion designer **Kanye West**, now also formally known as **Ye**. The choice of *Kanye West* for this project was an easy one for me. **He is arguably one of the greatest hip-hop artists of this generation**, and his influence on the music industry can't be understated. In particular, the way he keeps reinventing himself and his musical style (and with it the industry) from his first studio album, *The College Dropout*, to his latest works of *Donda* and *Jesus is King*.
+
+**Discography**
 
 **#TODO:** Add descriptions that describe the style of the album.
 
@@ -209,6 +213,8 @@ The tenth studio album of Kanye West is named *Donda* and released on August 29,
 *Donda 2* is Kanye West's eleventh and latest studio album was released in two batches in January and February 2022. Unfortunately, this album is not available on Spotify (or any streaming service for that matter), but only on his own created music player called the Stemplayer. Because of this limitation, this album won't be included in this research.
 
 Besides the eleven studio albums, Kanye West also released three collaborative albums called *Watch the Throne* (2011) with artist *Jay-Z*, *Cruel Summer* (2012) with *GOOD Music*, and *Kids See Ghosts* (2018) with artist *Kid Cudi*. Only *Watch the Throne* and *Kids See Ghosts* will be included in this analysis because these are primary Kanye West albums. At the same time, *Cruel Summer* is a collaboration of all the artists of the *GOOD Music* label. In addition, Spotify also does not include *Cruel Summer* in Kanye West's Albums.
+
+**Research**
 
 Reading these album descriptions should hint at the complex musical progression that defines Kanye West's music journey. **Therefore the central question that this study will try to answer is what makes Kanye West's discography so unique from one another?** 
 
