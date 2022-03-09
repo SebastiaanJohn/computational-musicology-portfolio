@@ -182,11 +182,7 @@ The following self-similarity matrices show pitch and timbre-based self-similari
 
 ### Introduction: The Evolution of Kanye West
 
-#### Introduction
-
 The subject of this portfolio is the discography of the rapper, producer, and fashion designer **Kanye West**, now also formally known as **Ye**. The choice of *Kanye West* for this project was an easy one for me. **He is arguably one of the greatest hip-hop artists of this generation**, and his influence on the music industry can't be understated. In particular, the way he keeps reinventing himself and his musical style (and with it the industry) from his first studio album, *The College Dropout*, to his latest works of *Donda* and *Jesus is King*.
-
-#### Discography
 
 **#TODO:** Add descriptions that describe the style of the album.
 
@@ -214,8 +210,6 @@ The tenth studio album of Kanye West is named *Donda* and released on August 29,
 
 Besides the eleven studio albums, Kanye West also released three collaborative albums called *Watch the Throne* (2011) with artist *Jay-Z*, *Cruel Summer* (2012) with *GOOD Music*, and *Kids See Ghosts* (2018) with artist *Kid Cudi*. Only *Watch the Throne* and *Kids See Ghosts* will be included in this analysis because these are primary Kanye West albums. At the same time, *Cruel Summer* is a collaboration of all the artists of the *GOOD Music* label. In addition, Spotify also does not include *Cruel Summer* in Kanye West's Albums.
 
-#### Research
-
 Reading these album descriptions should hint at the complex musical progression that defines Kanye West's music journey. **Therefore the central question that this study will try to answer is what makes Kanye West's discography so unique from one another?** 
 
 One of the most significant comparison points would be the discrepancies between the various albums. For instance, what attributes made each album feel so distinct but at the same time still recognize that it is a Kanye West album. I would think that the instruments and tempo are somewhat different between his first and latest work. Furthermore, his lyrics have changed a lot over the decades, such as not swearing anymore on songs, so I presume there could also be some interesting findings.
@@ -233,7 +227,8 @@ One of the most significant comparison points would be the discrepancies between
 
 2. Kanye West - I Thought About Killing You (ye): Very slow song that is in sharp contrast to the bass heavy tracks released earlier by Kanye.
 
-*** 
+***
+
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO3nMr04?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2Wiyo7LzdeBCsVZiRA6vVZ?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
