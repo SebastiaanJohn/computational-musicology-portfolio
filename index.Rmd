@@ -182,11 +182,43 @@ The following self-similarity matrices show pitch and timbre-based self-similari
 
 ### Introduction: The Evolution of Kanye West
 
-I chose **Kanye West's** music because of his **progression in style** from his first studio album _The College Dropout_, to his more recent work of _Donda_ and _Jesus is King_ is remarkable. I have yet to find an artist who changes his style that much from album to album and **successfully keeps reinventing himself**. Hence I find it very interesting to base my research on him. In addition, I find it very interesting how he uses different techniques and forms of traditional music with technology and explores philosophical ideas through his lyrics, which are often thought-provoking for those who listen closely enough to hear them.
+#### Introduction
 
-One of the most significant comparison points would be the **discrepancies between the various albums**. For instance, what attributes made each album feel so distinct but at the same time still recognize that it is a Kanye West album. I would think that the instruments and tempo are relatively different between his first and latest work. Furthermore, his lyrics have changed a lot over the decades, such as not swearing anymore, so I presume there could also be some interesting findings. 
+The subject of this portfolio is the discography of the rapper, producer, and fashion designer **Kanye West**, now also formally known as **Ye**. The choice of *Kanye West* for this project was an easy one for me. **He is arguably one of the greatest hip-hop artists of this generation**, and his influence on the music industry can't be understated. In particular, the way he keeps reinventing himself and his musical style (and with it the industry) from his first studio album, *The College Dropout*, to his latest works of *Donda* and *Jesus is King*.
 
-Spotify holds all the studio albums of Kanye West; hence I don't suspect there will be any significant limitations.
+#### Discography
+
+**#TODO:** Add descriptions that describe the style of the album.
+
+_The College Dropout_ is Kanye's first studio album, released on February 10, 2004. 
+
+_Late Registration_ is the second studio album released on August 30, 2005. 
+
+Kanye's third studio album, _Graduation_, was released on September 11, 2007. 
+
+_808s & Heartbreak_ is his fourth studio album, released on November 24, 2008. 
+
+Kanye West released his fifth studio album called _My Beautiful Dark Twisted Fantasy_ on November 22, 2010.
+
+*Yeezus* was released June 18, 2013, and is Kanye West's sixth studio album.
+
+The seventh studio album released by Kanye is called *The Life of Pablo* and was released on February 14, 2016. 
+
+*Ye*, his eighth studio album, was released on June 1, 2018. 
+
+_Jesus is King_ is Kanye's ninth studio album, released on October 25, 2019.
+
+The tenth studio album of Kanye West is named *Donda* and released on August 29, 2021. The album was named after his now passed mother *Donda West*. 
+
+*Donda 2* is Kanye West's eleventh and latest studio album was released in two batches in January and February 2022. Unfortunately, this album is not available on Spotify (or any streaming service for that matter), but only on his own created music player called the Stemplayer. Because of this limitation, this album won't be included in this research.
+
+Besides the eleven studio albums, Kanye West also released three collaborative albums called *Watch the Throne* (2011) with artist *Jay-Z*, *Cruel Summer* (2012) with *GOOD Music*, and *Kids See Ghosts* (2018) with artist *Kid Cudi*. Only *Watch the Throne* and *Kids See Ghosts* will be included in this analysis because these are primary Kanye West albums. At the same time, *Cruel Summer* is a collaboration of all the artists of the *GOOD Music* label. In addition, Spotify also does not include *Cruel Summer* in Kanye West's Albums.
+
+#### Research
+
+Reading these album descriptions should hint at the complex musical progression that defines Kanye West's music journey. **Therefore the central question that this study will try to answer is what makes Kanye West's discography so unique from one another?** 
+
+One of the most significant comparison points would be the discrepancies between the various albums. For instance, what attributes made each album feel so distinct but at the same time still recognize that it is a Kanye West album. I would think that the instruments and tempo are somewhat different between his first and latest work. Furthermore, his lyrics have changed a lot over the decades, such as not swearing anymore on songs, so I presume there could also be some interesting findings.
 
 **Typical Tracks:**
 
