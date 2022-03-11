@@ -113,7 +113,7 @@ One of the most significant comparison points would be the discrepancies between
 
 
 
-### **The evolving mental state of Kanye West.** Can a shift in **valence** explain his diverse discography?
+### The evolving mental state of Kanye West. Can a shift in **valence** explain his diverse discography?
 
 ```{r, echo=FALSE}
 
