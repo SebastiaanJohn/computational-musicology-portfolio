@@ -113,7 +113,7 @@ One of the most significant comparison points would be the discrepancies between
 
 
 
-### The evolving mental state of Kanye West. Can a shift in **valence** explain his diverse discography?
+### A complex life: have the albums become sadder as Kanye West's mental state changed?
 
 ```{r, echo=FALSE}
 
@@ -155,26 +155,25 @@ This continuous decline in valence could be an essential component in why every 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0yhxBvedRdGxsPZHJNI4VA?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 
-
-
-### Musical distribution of Kanye West songs
+### What can **valance** and **energy** tell us about the diversity of tracks in Kanye West's discography?
 
 ```{r, echo=FALSE}
 
 p <- ggplot(
   kanye,
   aes(
-    x = energy,
-    y = valence,
+    x = valence,
+    y = energy,
     color = album_name,
     label = track_name,
-    alpha = 0.8)
+    alpha = 0.5)
   ) +
   geom_point() +
   labs(
     title = "Distribution of energy and valence",
-    x = "Energy",
-    y = "Valence"
+    x = "Valence",
+    y = "Energy",
+    caption = "Data: Spotify"
   )
 
 fig <- ggplotly(p) %>%
@@ -185,7 +184,13 @@ fig
 
 ***
 
-plot info here
+The last plot shows that his music gradually becomes sadder as his career progresses. Let's examine the individual tracks that make up his albums now. The following graph shows all the individual tracks plotted against valence and energy. The color denotes the track's album. 
+
+While using valence individually provided a helpful understanding of the progression of his albums, combing it with **energy** will be more beneficial for individual tracks. Spotify describes the energy metric as a perceptual measurement of intensity and activity. Therefore, a track with low energy and valance can be characterized as more sad than a track with high valence and energy. 
+
+As shown on the plot, most of the tracks on the _ye_ album are low in energy and valence, which makes sense when you consider it's about his mental health. On the contrary, _Watch the Throne_, the collaboration album with rapper _Jay-Z_, has higher energy and valence scores. Additionally, there seem to be some outliers, such as _Donda Chant_ and _All Of The Lights,_ which have extremely low energy scores. Furthermore, _I Love Kanye_ has a very high valence score. Finally, the track _graduation_ has both extremely high valence and energy scores. All those tracks are exciting candidates to analyze further to see what features make these scores so high. We will do this in the following sections.
+
+Looking at the general spread of the data, we see that his music is very diverse in both valence and energy. This diversity could be an essential factor in making his music unique from album to album.
 
 
 ### Homework 10
