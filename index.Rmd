@@ -52,7 +52,7 @@ kanye <- head(kanye, -3)
 kanye <- kanye[!(kanye$album_release_date == "2005-01-01"), ]
 ```
 
-### Introduction: The Evolution of Kanye West
+### **Introduction:** The Evolution of Kanye West
 
 **Introduction**
 
@@ -113,7 +113,7 @@ One of the most significant comparison points would be the discrepancies between
 
 
 
-### The evolving mental state of Kanye West. Can a shift in valence explain his diverse discography?
+### **The evolving mental state of Kanye West.** Can a shift in **valence** explain his diverse discography?
 
 ```{r, echo=FALSE}
 
@@ -148,7 +148,11 @@ p
 
 Glancing at the plot on the left, we see that from his first studio album, _The College Dropout_, to his latest album _Donda_, there has been a continuous decrease in valence. When you look at his life since his first album, which is full of controversy and mental-related issues, it is not surprising to see that his music follows a similar path. An interesting point is a sharp decrease from his album _Graduation_ to _808s & Heartbreak._ One likely reason for this drop is that his mother passed away after the release of _Graduation_ and that his _808s_ album is a direct response to her passing. In addition, the album _ye_ has the lowest valance of all his albums, which seems reasonable when you consider that this album is about the mental issues he has, including bipolar disorder. 
 
-This continuous decline in valence could be an essential component in why every album feels unique from one another. 
+This continuous decline in valence could be an essential component in why every album feels unique from one another.
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0IW0qaeyxL5Et4UG2MrJKB?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0yhxBvedRdGxsPZHJNI4VA?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 
 
