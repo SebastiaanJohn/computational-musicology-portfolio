@@ -16,22 +16,141 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r libraries, include=FALSE}
+library(tidyverse)
 library(dplyr)
 library(spotifyr)
-library(tidyverse)
-library(knitr)
-library(lubridate)
-library(ggplot2)
+library(plotly)
 library(compmus)
-library(gtable)
-library(grid)
+library(lubridate)
+library(ggthemr)
 ```
 
 ```{r, include=FALSE}
-kanye <- get_artist_audio_features("kanye west")
-# remove non-deluxe album versions to remove duplicates
-kanye <- kanye[!(kanye$album_name == "Watch The Throne" | kanye$album_name == "Donda" | kanye$album_name == "Late Orchestration"), ]
+ggthemr('fresh')
 ```
+
+```{r preprocess, include=FALSE}
+
+# get all albums from Spotify API
+kanye <- get_artist_audio_features("kanye west")
+
+# remove non-deluxe album versions
+kanye <- kanye[!(kanye$album_name == "Watch The Throne" | kanye$album_name == "Donda" | kanye$album_name == "Late Orchestration"), ]
+
+# change dtype album release date
+kanye$album_release_date <- as.Date.character(kanye$album_release_date)
+
+# remove non-explicit albums when there are duplicates
+kanye <- kanye[order(kanye$explicit, decreasing = TRUE), ]
+kanye <- kanye[!duplicated(kanye$track_name), ]
+kanye <- kanye[!grepl('Edited', kanye$track_name), ]
+
+# remove last 3 duplicate rows
+kanye <- head(kanye, -3)
+
+# remove duplicates from late registration album
+kanye <- kanye[!(kanye$album_release_date == "2005-01-01"), ]
+```
+
+### Introduction: The Evolution of Kanye West
+
+**Introduction**
+
+The subject of this portfolio is the discography of the rapper, producer, and fashion designer **Kanye West**, now also formally known as **Ye**. The choice of *Kanye West* for this project was an easy one for me. **He is arguably one of the greatest hip-hop artists of this generation**, and his influence on the music industry can't be understated. In particular, the way he keeps reinventing himself and his musical style (and with it the industry) from his first studio album, *The College Dropout*, to his latest works of *Donda* and *Jesus is King*.
+
+**Discography**
+
+**#TODO:** Add descriptions that describe the style of the album.
+
+_The College Dropout_ is Kanye's first studio album, released on February 10, 2004. 
+
+_Late Registration_ is the second studio album released on August 30, 2005. 
+
+Kanye's third studio album, _Graduation_, was released on September 11, 2007. 
+
+_808s & Heartbreak_ is his fourth studio album, released on November 24, 2008. 
+
+Kanye West released his fifth studio album called _My Beautiful Dark Twisted Fantasy_ on November 22, 2010.
+
+*Yeezus* was released June 18, 2013, and is Kanye West's sixth studio album.
+
+The seventh studio album released by Kanye is called *The Life of Pablo* and was released on February 14, 2016. 
+
+*Ye*, his eighth studio album, was released on June 1, 2018. 
+
+_Jesus is King_ is Kanye's ninth studio album, released on October 25, 2019.
+
+The tenth studio album of Kanye West is named *Donda* and released on August 29, 2021. The album was named after his now passed mother *Donda West*. 
+
+*Donda 2* is Kanye West's eleventh and latest studio album was released in two batches in January and February 2022. Unfortunately, this album is not available on Spotify (or any streaming service for that matter), but only on his own created music player called the Stemplayer. Because of this limitation, this album won't be included in this research.
+
+Besides the eleven studio albums, Kanye West also released three collaborative albums called *Watch the Throne* (2011) with artist *Jay-Z*, *Cruel Summer* (2012) with *GOOD Music*, and *Kids See Ghosts* (2018) with artist *Kid Cudi*. Only *Watch the Throne* and *Kids See Ghosts* will be included in this analysis because these are primary Kanye West albums. At the same time, *Cruel Summer* is a collaboration of all the artists of the *GOOD Music* label. In addition, Spotify also does not include *Cruel Summer* in Kanye West's Albums. Furthermore, *Late Orchestration*, the only live album in his Spotify discography, will not be included. Finally, if the album has a standard and deluxe version, the deluxe version will be chosen here.
+
+**Research**
+
+Reading these album descriptions should hint at the complex musical progression that defines Kanye West's music journey. **Therefore the central question that this study will try to answer is what makes Kanye West's discography so unique from one another?** 
+
+One of the most significant comparison points would be the discrepancies between the various albums. For instance, what attributes made each album feel so distinct but at the same time still recognize that it is a Kanye West album. I would think that the instruments and tempo are somewhat different between his first and latest work. Furthermore, his lyrics have changed a lot over the decades, such as not swearing anymore on songs, so I presume there could also be some interesting findings.
+
+**Typical Tracks:**
+
+1. Kanye West - Heartless (808s & Heartbreak): One of the most iconic Kanye West tracks. Lots of auto tune and minimalistic songwriting. This is probably the era of Kanye tracks that most people remember.
+
+2. Kanye West - Bound 2 (Yeezus): Very different track from the rest of Yeezus, however, still very typical Kanye West. 
+  
+
+**Atypical Tracks:**
+
+1. Kanye West, Sunday Service Choir - Every Hour (Jesus is King): A big departure from previous work. Jesus is King is a gospel album, with the first track _Every Hour_ being in a very different style then done before.
+
+2. Kanye West - I Thought About Killing You (ye): Very slow song that is in sharp contrast to the bass heavy tracks released earlier by Kanye.
+
+***
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO3nMr04?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2Wiyo7LzdeBCsVZiRA6vVZ?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+
+
+### The evolving mental state of Kanye West. Can a shift in valence explain his diverse discography?
+
+```{r, echo=FALSE}
+
+# check valence per album
+album_valence <- kanye %>%
+  group_by(album_name, album_release_date) %>%
+  summarise(mean_valence = mean(valence))
+
+
+p <- ggplot(
+  album_valence,
+  aes(
+    x = reorder(album_name, +album_release_date),
+    y = mean_valence)) +
+  geom_bar(stat='identity') +
+  labs(
+    x = "Albums by release date",
+    y = "Valence",
+    title = "Kanye's mental state progression",
+    subtitle = "The average musical positiveness per album tracked over time.",
+    caption = "Data: Spotify"
+  ) +
+  theme(axis.text.x=element_text(angle=45, hjust=1))
+
+p
+```
+
+
+*** 
+
+**Kanye West** has a complicated life full of **highs** and **lows**. Therefore, it will be interesting to start this analysis by exploring how his albums changed in terms of positivity over time. Fortunately, [Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features) provides a measure of positivity called **valence**. Music with high valence sound more positive, while music with low valence sound more negative. Furthermore, valence is measured as a number between 0.0 and 1.0. 
+
+Glancing at the plot on the left, we see that from his first studio album, _The College Dropout_, to his latest album _Donda_, there has been a continuous decrease in valence. When you look at his life since his first album, which is full of controversy and mental-related issues, it is not surprising to see that his music follows a similar path. An interesting point is a sharp decrease from his album _Graduation_ to _808s & Heartbreak._ One likely reason for this drop is that his mother passed away after the release of _Graduation_ and that his _808s_ album is a direct response to her passing. In addition, the album _ye_ has the lowest valance of all his albums, which seems reasonable when you consider that this album is about the mental issues he has, including bipolar disorder. 
+
+This continuous decline in valence could be an essential component in why every album feels unique from one another. 
+
+
 
 ### Homework 10
 
@@ -124,7 +243,7 @@ key_templates <-
   )
 ```
 
-```{r chordogram, include=FALSE}
+```{r chordogram, echo=FALSE}
 
 every_hour <-
   get_tidy_audio_analysis("1WnqWQcWcuQbVzgE7ecfCY") %>%
@@ -151,7 +270,11 @@ every_hour %>%
   geom_tile() +
   scale_fill_viridis_c(guide = "none") +
   theme_minimal() +
-  labs(x = "Time (s)", y = "")
+  labs(
+    x = "Time (s)", 
+    y = "",
+    title = "Chordogram",
+    subtitle = "Every Hour - Kanye West")
 
 ```
 
@@ -159,98 +282,6 @@ every_hour %>%
 *** 
 Chordogram
 
-### Kanye's style progression over the years.
-
-```{r, include=FALSE}
-style_progression <- kanye %>%
-  group_by(album_name, album_release_year) %>%
-  summarize(
-    avgDanceability = mean(danceability),
-    avgEnergy = mean(energy)
-    )
-
-plot1 <- ggplot(style_progression, aes(x=album_release_year)) +
-  geom_smooth(aes(y = avgDanceability, color = "Danceability"), se=FALSE) +
-  geom_smooth(aes(y = avgEnergy, color = "Energy"), se=FALSE) +
-  labs(x = "Year",
-       y = "Value",
-       color = "Legend",
-       title = "Danceability & Energy progression of Kanye West albums through the years."
-       )
-```
-
-```{r plot, message=FALSE, echo=FALSE}
-plot1
-```
-
-***
-Kanye West's albums have seen a significant shift in style over the years. Especially in his latest works, such as __Ye__ and __Jesus is King__, which are a lot slower and differ a lot from the explosive sounds of __Yeezus__ and __Watch the Throne__. To get a better feel of how much his style changed, we will look at his albums' **danceability** and **energy** values. The values come from the Spotify API and are described as follows: 
-
-__"Danceability describes how suitable a track is for dancing based on a combination of musical elements, including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable, and 1.0 is the most danceable."__
-
-__"Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy."__
-
-Looking at the plot below, both the **danceability** and **energy** have dropped significantly in the last couple of years. 
-
-
-### Introduction: The Evolution of Kanye West
-
-**Introduction**
-
-The subject of this portfolio is the discography of the rapper, producer, and fashion designer **Kanye West**, now also formally known as **Ye**. The choice of *Kanye West* for this project was an easy one for me. **He is arguably one of the greatest hip-hop artists of this generation**, and his influence on the music industry can't be understated. In particular, the way he keeps reinventing himself and his musical style (and with it the industry) from his first studio album, *The College Dropout*, to his latest works of *Donda* and *Jesus is King*.
-
-**Discography**
-
-**#TODO:** Add descriptions that describe the style of the album.
-
-_The College Dropout_ is Kanye's first studio album, released on February 10, 2004. 
-
-_Late Registration_ is the second studio album released on August 30, 2005. 
-
-Kanye's third studio album, _Graduation_, was released on September 11, 2007. 
-
-_808s & Heartbreak_ is his fourth studio album, released on November 24, 2008. 
-
-Kanye West released his fifth studio album called _My Beautiful Dark Twisted Fantasy_ on November 22, 2010.
-
-*Yeezus* was released June 18, 2013, and is Kanye West's sixth studio album.
-
-The seventh studio album released by Kanye is called *The Life of Pablo* and was released on February 14, 2016. 
-
-*Ye*, his eighth studio album, was released on June 1, 2018. 
-
-_Jesus is King_ is Kanye's ninth studio album, released on October 25, 2019.
-
-The tenth studio album of Kanye West is named *Donda* and released on August 29, 2021. The album was named after his now passed mother *Donda West*. 
-
-*Donda 2* is Kanye West's eleventh and latest studio album was released in two batches in January and February 2022. Unfortunately, this album is not available on Spotify (or any streaming service for that matter), but only on his own created music player called the Stemplayer. Because of this limitation, this album won't be included in this research.
-
-Besides the eleven studio albums, Kanye West also released three collaborative albums called *Watch the Throne* (2011) with artist *Jay-Z*, *Cruel Summer* (2012) with *GOOD Music*, and *Kids See Ghosts* (2018) with artist *Kid Cudi*. Only *Watch the Throne* and *Kids See Ghosts* will be included in this analysis because these are primary Kanye West albums. At the same time, *Cruel Summer* is a collaboration of all the artists of the *GOOD Music* label. In addition, Spotify also does not include *Cruel Summer* in Kanye West's Albums. Furthermore, *Late Orchestration*, the only live album in his Spotify discography, will not be included. Finally, if the album has a standard and deluxe version, the deluxe version will be chosen here.
-
-**Research**
-
-Reading these album descriptions should hint at the complex musical progression that defines Kanye West's music journey. **Therefore the central question that this study will try to answer is what makes Kanye West's discography so unique from one another?** 
-
-One of the most significant comparison points would be the discrepancies between the various albums. For instance, what attributes made each album feel so distinct but at the same time still recognize that it is a Kanye West album. I would think that the instruments and tempo are somewhat different between his first and latest work. Furthermore, his lyrics have changed a lot over the decades, such as not swearing anymore on songs, so I presume there could also be some interesting findings.
-
-**Typical Tracks:**
-
-1. Kanye West - Heartless (808s & Heartbreak): One of the most iconic Kanye West tracks. Lots of auto tune and minimalistic songwriting. This is probably the era of Kanye tracks that most people remember.
-
-2. Kanye West - Bound 2 (Yeezus): Very different track from the rest of Yeezus, however, still very typical Kanye West. 
-  
-
-**Atypical Tracks:**
-
-1. Kanye West, Sunday Service Choir - Every Hour (Jesus is King): A big departure from previous work. Jesus is King is a gospel album, with the first track _Every Hour_ being in a very different style then done before.
-
-2. Kanye West - I Thought About Killing You (ye): Very slow song that is in sharp contrast to the bass heavy tracks released earlier by Kanye.
-
-***
-
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO3nMr04?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2Wiyo7LzdeBCsVZiRA6vVZ?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 ### Chroma & Timbre (title wip)
 
@@ -399,4 +430,11 @@ The following self-similarity matrices show pitch and timbre-based self-similari
 
 
 
+
+
+
+
+***
+
+Plot info here
 
