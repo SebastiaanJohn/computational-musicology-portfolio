@@ -56,7 +56,7 @@ kanye <- kanye[!(kanye$album_release_date == "2005-01-01"), ]
 
 **Introduction**
 
-The subject of this portfolio is the discography of the rapper, producer, and fashion designer **Kanye West**, now also formally known as **Ye**. The choice of *Kanye West* for this project was an easy one for me. **He is arguably one of the greatest hip-hop artists of this generation**, and his influence on the music industry can't be understated. In particular, the way he keeps reinventing himself and his musical style (and with it the industry) from his first studio album, *The College Dropout*, to his latest works of *Donda* and *Jesus is King*.
+The subject of this portfolio is the discography of the rapper, producer, and fashion designer **Kanye West**, now also formally known as **Ye**. The choice of Kanye West for this project was an easy one for me. **He is arguably one of the greatest hip-hop artists of this generation**, and his influence on the music industry can't be understated. In particular, the way he keeps reinventing himself and his musical style (and with it the industry) from his first studio album, *The College Dropout*, to his latest works of *Donda* and *Jesus is King*.
 
 **Discography**
 
@@ -130,7 +130,7 @@ p <- ggplot(
     y = mean_valence)) +
   geom_bar(stat='identity') +
   labs(
-    x = "Albums by release date",
+    x = "Album by release date",
     y = "Valence",
     title = "Kanye's mental state progression",
     subtitle = "The average musical positiveness per album tracked over time.",
@@ -144,7 +144,7 @@ p
 
 *** 
 
-**Kanye West** has a complicated life full of **highs** and **lows**. Therefore, it will be interesting to start this analysis by exploring how his albums changed in terms of positivity over time. Fortunately,  [Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features) provides a measure of positivity called **valence**. Music with high valence sound more positive, while music with low valence sound more negative. Furthermore, valence is measured as a number between 0.0 and 1.0. 
+**Kanye West** has a complicated life full of **highs** and **lows**. Therefore, it will be interesting to start this analysis by exploring how his albums changed in terms of positivity over time. Fortunately,  [Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features) provides a measure of positivity called **valence**. Music with high valence sound more positive, while music with low valence sound more negative. Furthermore, valence is measured as a number between 0.0 and 1.0. The album's valance score is calculated by taking the average of all the tracks in the album.
 
 Glancing at the plot on the left, we see that from his first studio album, _The College Dropout_, to his latest album _Donda_, there has been a continuous decrease in valence. When you look at his life since his first album, which is full of controversy and mental-related issues, it is not surprising to see that his music follows a similar path. An interesting point is a sharp decrease from his album _Graduation_ to _808s & Heartbreak._ One likely reason for this drop is that his mother passed away after the release of _Graduation_ and that his _808s_ album is a direct response to her passing. In addition, the album _ye_ has the lowest valance of all his albums, which seems reasonable when you consider that this album is about the mental issues he has, including bipolar disorder. 
 
