@@ -11,11 +11,11 @@ output:
       - { title: "Github", href: "https://github.com/SebastiaanJohn/computational-musicology-portfolio", align: right, icon: fa-github}
 ---
 
-```{r setup, include=FALSE}
+```{r, setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r libraries, include=FALSE}
+```{r, libraries, include=FALSE}
 library(tidyverse)
 library(dplyr)
 library(spotifyr)
@@ -144,7 +144,7 @@ p
 
 *** 
 
-**Kanye West** has a complicated life full of **highs** and **lows**. Therefore, it will be interesting to start this analysis by exploring how his albums changed in terms of positivity over time. Fortunately, [Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features) provides a measure of positivity called **valence**. Music with high valence sound more positive, while music with low valence sound more negative. Furthermore, valence is measured as a number between 0.0 and 1.0. 
+**Kanye West** has a complicated life full of **highs** and **lows**. Therefore, it will be interesting to start this analysis by exploring how his albums changed in terms of positivity over time. Fortunately,  [Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features) provides a measure of positivity called **valence**. Music with high valence sound more positive, while music with low valence sound more negative. Furthermore, valence is measured as a number between 0.0 and 1.0. 
 
 Glancing at the plot on the left, we see that from his first studio album, _The College Dropout_, to his latest album _Donda_, there has been a continuous decrease in valence. When you look at his life since his first album, which is full of controversy and mental-related issues, it is not surprising to see that his music follows a similar path. An interesting point is a sharp decrease from his album _Graduation_ to _808s & Heartbreak._ One likely reason for this drop is that his mother passed away after the release of _Graduation_ and that his _808s_ album is a direct response to her passing. In addition, the album _ye_ has the lowest valance of all his albums, which seems reasonable when you consider that this album is about the mental issues he has, including bipolar disorder. 
 
@@ -154,6 +154,38 @@ This continuous decline in valence could be an essential component in why every 
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0yhxBvedRdGxsPZHJNI4VA?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
+
+
+
+### Musical distribution of Kanye West songs
+
+```{r, echo=FALSE}
+
+p <- ggplot(
+  kanye,
+  aes(
+    x = energy,
+    y = valence,
+    color = album_name,
+    label = track_name,
+    alpha = 0.8)
+  ) +
+  geom_point() +
+  labs(
+    title = "Distribution of energy and valence",
+    x = "Energy",
+    y = "Valence"
+  )
+
+fig <- ggplotly(p) %>%
+  layout(legend=list(title=list(text='<b> Albums </b>')))
+
+fig
+```
+
+***
+
+plot info here
 
 
 ### Homework 10
