@@ -194,7 +194,7 @@ Looking at the general spread of the data, we see that his music is very diverse
 
 
 
-### Can a **chromagram** tell us what makes these outliers special?
+### What makes Homecoming one of the most energetic and happy tracks? Let's examine with a **chromagram**.
 
 ```{r, echo=FALSE}
 
@@ -228,7 +228,9 @@ homecoming %>%
 
 ***
 
-plot info here
+TODO: add info
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4iz9lGMjU1lXS51oPmUmTe?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 ### What can **chroma** and **timbre** features tell us about Kanye's old and new music?
 
@@ -387,7 +389,7 @@ TODO: add plot details and conclusion
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/32ZGcotUVtU3Zfz9lmM8Mi?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 
-### Chordograms
+### Donda Chant is the most significant outlier of Kanye's discography. Let's check it with a **chordogram**.
 
 ``` {r key-profile, include=FALSE}
 
