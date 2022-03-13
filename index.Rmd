@@ -478,7 +478,7 @@ key_templates <-
   )
 ```
 
-```{r chordogram, echo=FALSE}
+```{r, echo=FALSE}
 
 # get Donda Chant from Spotify API
 donda_chant <-
@@ -494,6 +494,10 @@ donda_chant <-
       )
   )
 
+```
+
+```{r chordogram, echo=FALSE}
+
 # compute chordogram of Donda Chant
 donda_chant %>% 
   compmus_match_pitch_template(
@@ -505,6 +509,7 @@ donda_chant %>%
     aes(x = start + duration / 2, width = duration, y = name, fill = d)
   ) +
   geom_tile() +
+  theme(axis.text = element_text(size = 6)) +
   scale_fill_viridis_c(guide = "none") +
   labs(
     x = "Time (s)", 
@@ -518,6 +523,8 @@ donda_chant %>%
 
 *** 
 Chordogram
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3xQTo7wPYHZtFbHAoygz2c?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 
 ### Conclusion
