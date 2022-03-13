@@ -230,9 +230,7 @@ homecoming %>%
 
 plot info here
 
-
-
-### Chroma & Timbre
+### What can **chroma** and **timbre** features tell us about Kanye's old and new music?
 
 ``` {r, self-sim-matrix, fig.show="hold", out.width="50%", echo=FALSE}
 jesus_walks <-
@@ -376,17 +374,6 @@ plot(jwl_timbre)
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1vJvwNUE99zqvu62iKCzJd?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 The following self-similarity matrices show pitch and timbre-based self-similarity from two interpretations of the same song by Kanye West. The difference between the songs is that one is performed live and the other in a studio.
-
-
-
-
-
-
-
-***
-
-Plot info here
-
 
 
 ### Chordograms
