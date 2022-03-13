@@ -232,9 +232,11 @@ plot info here
 
 ### What can **chroma** and **timbre** features tell us about Kanye's old and new music?
 
-``` {r, self-sim-matrix, fig.show="hold", out.width="50%", echo=FALSE}
-jesus_walks <-
-  get_tidy_audio_analysis("5g1vtHqi9uV7xtYeCcFOBx") %>% 
+```{r, echo=FALSE}
+
+# get through the wire from Spotify API
+wire <-
+  get_tidy_audio_analysis("4mmkhcEm1Ljy1U9nwtsxUo") %>% 
   compmus_align(bars, segments) %>%                    
   select(bars) %>%                                      
   unnest(bars) %>%                                      
@@ -253,8 +255,9 @@ jesus_walks <-
       )
   )
 
-jesus_walks_live <-
-  get_tidy_audio_analysis("1vJvwNUE99zqvu62iKCzJd") %>% 
+# get praise god from Spotify API
+praise_god <-
+  get_tidy_audio_analysis("32ZGcotUVtU3Zfz9lmM8Mi") %>% 
   compmus_align(bars, segments) %>%                    
   select(bars) %>%                                      
   unnest(bars) %>%                                      
@@ -273,7 +276,12 @@ jesus_walks_live <-
       )
   )
 
-jw_chroma <- jesus_walks %>%
+```
+
+``` {r, self-sim-matrix, fig.show="hold", out.width="50%", echo=FALSE}
+
+# compute chroma of through the wire
+wire_chroma <- wire %>%
   compmus_self_similarity(pitches, "aitchison") %>% 
   ggplot(
     aes(
@@ -287,15 +295,15 @@ jw_chroma <- jesus_walks %>%
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
-  theme_classic() +
   labs(
     x = "Time (samples)", 
     y = "Time (samples)",
     title = "Chroma",
-    subtitle = "Jesus Walks"
-    )
+    subtitle = "Through The Wire (2004)",
+    caption = "Data: Spotify")
 
-jw_timbre <- jesus_walks %>%
+# compute timbre of through the wire
+wire_timbre <- wire %>%
   compmus_self_similarity(timbre, "euclidean") %>% 
   ggplot(
     aes(
@@ -309,15 +317,15 @@ jw_timbre <- jesus_walks %>%
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
-  theme_classic() +
   labs(
     x = "Time (samples)", 
     y = "Time (samples)",
     title = "Timbre",
-    subtitle = "Jesus Walks"
-    )
+    subtitle = "Through The Wire (2004)",
+    caption = "Data: Spotify")
 
-jwl_chroma <- jesus_walks_live %>%
+# computer chroma of praise god
+praise_god_chroma <- praise_god %>%
   compmus_self_similarity(pitches, "aitchison") %>% 
   ggplot(
     aes(
@@ -331,15 +339,15 @@ jwl_chroma <- jesus_walks_live %>%
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
-  theme_classic() +
   labs(
     x = "Time (samples)", 
     y = "Time (samples)",
     title = "Chroma",
-    subtitle = "Jesus Walks (Live)"
-    )
+    subtitle = "Praise God (2021)",
+    caption = "Data: Spotify")
 
-jwl_timbre <- jesus_walks_live %>%
+# compute timbre of praise god
+praise_god_timbre <- praise_god %>%
   compmus_self_similarity(timbre, "euclidean") %>% 
   ggplot(
     aes(
@@ -353,27 +361,24 @@ jwl_timbre <- jesus_walks_live %>%
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
-  theme_classic() +
   labs(
     x = "Time (samples)", 
     y = "Time (samples)",
     title = "Timbre",
-    subtitle = "Jesus Walks (Live)"
-    )
+    subtitle = "Praise God (2021)",
+    caption = "Data: Spotify")
 
+# plot graphs in grid
 par(mar = c(4, 4, .1, .1))
-plot(jw_chroma)
-plot(jwl_chroma)
-plot(jw_timbre)
-plot(jwl_timbre)
+plot(wire_chroma)
+plot(praise_god_chroma)
+plot(wire_timbre)
+plot(praise_god_timbre)
 ```
 
 ***
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5g1vtHqi9uV7xtYeCcFOBx?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1vJvwNUE99zqvu62iKCzJd?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-The following self-similarity matrices show pitch and timbre-based self-similarity from two interpretations of the same song by Kanye West. The difference between the songs is that one is performed live and the other in a studio.
+plot info here
 
 
 ### Chordograms
