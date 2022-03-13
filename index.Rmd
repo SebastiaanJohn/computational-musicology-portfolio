@@ -480,8 +480,9 @@ key_templates <-
 
 ```{r chordogram, echo=FALSE}
 
-every_hour <-
-  get_tidy_audio_analysis("1WnqWQcWcuQbVzgE7ecfCY") %>%
+# get Donda Chant from Spotify API
+donda_chant <-
+  get_tidy_audio_analysis("3xQTo7wPYHZtFbHAoygz2c") %>%
   compmus_align(sections, segments) %>%
   select(sections) %>%
   unnest(sections) %>%
@@ -493,7 +494,8 @@ every_hour <-
       )
   )
 
-every_hour %>% 
+# compute chordogram of Donda Chant
+donda_chant %>% 
   compmus_match_pitch_template(
     chord_templates,
     method = "euclidean",  
@@ -504,12 +506,12 @@ every_hour %>%
   ) +
   geom_tile() +
   scale_fill_viridis_c(guide = "none") +
-  theme_minimal() +
   labs(
     x = "Time (s)", 
     y = "",
     title = "Chordogram",
-    subtitle = "Every Hour - Kanye West")
+    subtitle = "Donda Chant (2021)",
+    caption = "Data: Spotify")
 
 ```
 
