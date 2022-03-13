@@ -188,143 +188,51 @@ The last plot shows that his music gradually becomes sadder as his career progre
 
 While using valence individually provided a helpful understanding of the progression of his albums, combing it with **energy** will be more beneficial for individual tracks. Spotify describes the energy metric as a perceptual measurement of intensity and activity. Therefore, a track with low energy and valance can be characterized as more sad than a track with high valence and energy. 
 
-As shown on the plot, most of the tracks on the _ye_ album are low in energy and valence, which makes sense when you consider it's about his mental health. On the contrary, _Watch the Throne_, the collaboration album with rapper _Jay-Z_, has higher energy and valence scores. Additionally, there seem to be some outliers, such as _Donda Chant_ and _All Of The Lights,_ which have extremely low energy scores. Furthermore, _I Love Kanye_ has a very high valence score. Finally, the track _graduation_ has both extremely high valence and energy scores. All those tracks are exciting candidates to analyze further to see what features make these scores so high. We will do this in the following sections.
+As shown on the plot, most of the tracks on the _ye_ album are low in energy and valence, which makes sense when you consider it's about his mental health. On the contrary, _Watch the Throne_, the collaboration album with rapper _Jay-Z_, has higher energy and valence scores. Additionally, there seem to be some outliers, such as _Donda Chant_ and _All Of The Lights,_ which have extremely low energy scores. Furthermore, _I Love Kanye_ has a very high valence score. Finally, the track _homecoming_ has both extremely high valence and energy scores. All those tracks are exciting candidates to analyze further to see what features make these scores so high. We will do this in the following sections.
 
 Looking at the general spread of the data, we see that his music is very diverse in both valence and energy. This diversity could be an essential factor in making his music unique from album to album.
 
 
-### Homework 10
 
-``` {r key-profile, include=FALSE}
+### Can a **chromagram** tell us what makes these outliers special?
 
-circshift <- function(v, n) {
-  if (n == 0) v else c(tail(v, n), head(v, -n))
-}
+```{r, echo=FALSE}
 
-#      C     C#    D     Eb    E     F     F#    G     Ab    A     Bb    B
-major_chord <-
-  c(   1,    0,    0,    0,    1,    0,    0,    1,    0,    0,    0,    0)
-minor_chord <-
-  c(   1,    0,    0,    1,    0,    0,    0,    1,    0,    0,    0,    0)
-seventh_chord <-
-  c(   1,    0,    0,    0,    1,    0,    0,    1,    0,    0,    1,    0)
+homecoming <- get_tidy_audio_analysis("4iz9lGMjU1lXS51oPmUmTe") %>%
+  select(segments) %>%
+  unnest(segments) %>%
+  select(start, duration, pitches)
 
-major_key <-
-  c(6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88)
-minor_key <-
-  c(6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17)
-
-chord_templates <-
-  tribble(
-    ~name, ~template,
-    "Gb:7", circshift(seventh_chord, 6),
-    "Gb:maj", circshift(major_chord, 6),
-    "Bb:min", circshift(minor_chord, 10),
-    "Db:maj", circshift(major_chord, 1),
-    "F:min", circshift(minor_chord, 5),
-    "Ab:7", circshift(seventh_chord, 8),
-    "Ab:maj", circshift(major_chord, 8),
-    "C:min", circshift(minor_chord, 0),
-    "Eb:7", circshift(seventh_chord, 3),
-    "Eb:maj", circshift(major_chord, 3),
-    "G:min", circshift(minor_chord, 7),
-    "Bb:7", circshift(seventh_chord, 10),
-    "Bb:maj", circshift(major_chord, 10),
-    "D:min", circshift(minor_chord, 2),
-    "F:7", circshift(seventh_chord, 5),
-    "F:maj", circshift(major_chord, 5),
-    "A:min", circshift(minor_chord, 9),
-    "C:7", circshift(seventh_chord, 0),
-    "C:maj", circshift(major_chord, 0),
-    "E:min", circshift(minor_chord, 4),
-    "G:7", circshift(seventh_chord, 7),
-    "G:maj", circshift(major_chord, 7),
-    "B:min", circshift(minor_chord, 11),
-    "D:7", circshift(seventh_chord, 2),
-    "D:maj", circshift(major_chord, 2),
-    "F#:min", circshift(minor_chord, 6),
-    "A:7", circshift(seventh_chord, 9),
-    "A:maj", circshift(major_chord, 9),
-    "C#:min", circshift(minor_chord, 1),
-    "E:7", circshift(seventh_chord, 4),
-    "E:maj", circshift(major_chord, 4),
-    "G#:min", circshift(minor_chord, 8),
-    "B:7", circshift(seventh_chord, 11),
-    "B:maj", circshift(major_chord, 11),
-    "D#:min", circshift(minor_chord, 3)
-  )
-
-key_templates <-
-  tribble(
-    ~name, ~template,
-    "Gb:maj", circshift(major_key, 6),
-    "Bb:min", circshift(minor_key, 10),
-    "Db:maj", circshift(major_key, 1),
-    "F:min", circshift(minor_key, 5),
-    "Ab:maj", circshift(major_key, 8),
-    "C:min", circshift(minor_key, 0),
-    "Eb:maj", circshift(major_key, 3),
-    "G:min", circshift(minor_key, 7),
-    "Bb:maj", circshift(major_key, 10),
-    "D:min", circshift(minor_key, 2),
-    "F:maj", circshift(major_key, 5),
-    "A:min", circshift(minor_key, 9),
-    "C:maj", circshift(major_key, 0),
-    "E:min", circshift(minor_key, 4),
-    "G:maj", circshift(major_key, 7),
-    "B:min", circshift(minor_key, 11),
-    "D:maj", circshift(major_key, 2),
-    "F#:min", circshift(minor_key, 6),
-    "A:maj", circshift(major_key, 9),
-    "C#:min", circshift(minor_key, 1),
-    "E:maj", circshift(major_key, 4),
-    "G#:min", circshift(minor_key, 8),
-    "B:maj", circshift(major_key, 11),
-    "D#:min", circshift(minor_key, 3)
-  )
-```
-
-```{r chordogram, echo=FALSE}
-
-every_hour <-
-  get_tidy_audio_analysis("1WnqWQcWcuQbVzgE7ecfCY") %>%
-  compmus_align(sections, segments) %>%
-  select(sections) %>%
-  unnest(sections) %>%
-  mutate(
-    pitches =
-      map(segments,
-        compmus_summarise, pitches,
-        method = "mean", norm = "manhattan"
-      )
-  )
-
-every_hour %>% 
-  compmus_match_pitch_template(
-    chord_templates,
-    method = "euclidean",  
-    norm = "manhattan"     
-  ) %>%
+homecoming %>%
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) %>%
+  compmus_gather_chroma() %>% 
   ggplot(
-    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = pitch_class,
+      fill = value
+    )
   ) +
   geom_tile() +
-  scale_fill_viridis_c(guide = "none") +
-  theme_minimal() +
   labs(
     x = "Time (s)", 
-    y = "",
-    title = "Chordogram",
-    subtitle = "Every Hour - Kanye West")
+    y = NULL, 
+    fill = "Magnitude",
+    title = "Chromagram of Homecoming",
+    caption ="Date: Spotfiy"
+    ) +
+  scale_fill_viridis_c()
 
 ```
 
+***
 
-*** 
-Chordogram
+plot info here
 
 
-### Chroma & Timbre (title wip)
+
+### Chroma & Timbre
 
 ``` {r, self-sim-matrix, fig.show="hold", out.width="50%", echo=FALSE}
 jesus_walks <-
@@ -479,3 +387,137 @@ The following self-similarity matrices show pitch and timbre-based self-similari
 
 Plot info here
 
+
+
+### Chordograms
+
+``` {r key-profile, include=FALSE}
+
+circshift <- function(v, n) {
+  if (n == 0) v else c(tail(v, n), head(v, -n))
+}
+
+#      C     C#    D     Eb    E     F     F#    G     Ab    A     Bb    B
+major_chord <-
+  c(   1,    0,    0,    0,    1,    0,    0,    1,    0,    0,    0,    0)
+minor_chord <-
+  c(   1,    0,    0,    1,    0,    0,    0,    1,    0,    0,    0,    0)
+seventh_chord <-
+  c(   1,    0,    0,    0,    1,    0,    0,    1,    0,    0,    1,    0)
+
+major_key <-
+  c(6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88)
+minor_key <-
+  c(6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17)
+
+chord_templates <-
+  tribble(
+    ~name, ~template,
+    "Gb:7", circshift(seventh_chord, 6),
+    "Gb:maj", circshift(major_chord, 6),
+    "Bb:min", circshift(minor_chord, 10),
+    "Db:maj", circshift(major_chord, 1),
+    "F:min", circshift(minor_chord, 5),
+    "Ab:7", circshift(seventh_chord, 8),
+    "Ab:maj", circshift(major_chord, 8),
+    "C:min", circshift(minor_chord, 0),
+    "Eb:7", circshift(seventh_chord, 3),
+    "Eb:maj", circshift(major_chord, 3),
+    "G:min", circshift(minor_chord, 7),
+    "Bb:7", circshift(seventh_chord, 10),
+    "Bb:maj", circshift(major_chord, 10),
+    "D:min", circshift(minor_chord, 2),
+    "F:7", circshift(seventh_chord, 5),
+    "F:maj", circshift(major_chord, 5),
+    "A:min", circshift(minor_chord, 9),
+    "C:7", circshift(seventh_chord, 0),
+    "C:maj", circshift(major_chord, 0),
+    "E:min", circshift(minor_chord, 4),
+    "G:7", circshift(seventh_chord, 7),
+    "G:maj", circshift(major_chord, 7),
+    "B:min", circshift(minor_chord, 11),
+    "D:7", circshift(seventh_chord, 2),
+    "D:maj", circshift(major_chord, 2),
+    "F#:min", circshift(minor_chord, 6),
+    "A:7", circshift(seventh_chord, 9),
+    "A:maj", circshift(major_chord, 9),
+    "C#:min", circshift(minor_chord, 1),
+    "E:7", circshift(seventh_chord, 4),
+    "E:maj", circshift(major_chord, 4),
+    "G#:min", circshift(minor_chord, 8),
+    "B:7", circshift(seventh_chord, 11),
+    "B:maj", circshift(major_chord, 11),
+    "D#:min", circshift(minor_chord, 3)
+  )
+
+key_templates <-
+  tribble(
+    ~name, ~template,
+    "Gb:maj", circshift(major_key, 6),
+    "Bb:min", circshift(minor_key, 10),
+    "Db:maj", circshift(major_key, 1),
+    "F:min", circshift(minor_key, 5),
+    "Ab:maj", circshift(major_key, 8),
+    "C:min", circshift(minor_key, 0),
+    "Eb:maj", circshift(major_key, 3),
+    "G:min", circshift(minor_key, 7),
+    "Bb:maj", circshift(major_key, 10),
+    "D:min", circshift(minor_key, 2),
+    "F:maj", circshift(major_key, 5),
+    "A:min", circshift(minor_key, 9),
+    "C:maj", circshift(major_key, 0),
+    "E:min", circshift(minor_key, 4),
+    "G:maj", circshift(major_key, 7),
+    "B:min", circshift(minor_key, 11),
+    "D:maj", circshift(major_key, 2),
+    "F#:min", circshift(minor_key, 6),
+    "A:maj", circshift(major_key, 9),
+    "C#:min", circshift(minor_key, 1),
+    "E:maj", circshift(major_key, 4),
+    "G#:min", circshift(minor_key, 8),
+    "B:maj", circshift(major_key, 11),
+    "D#:min", circshift(minor_key, 3)
+  )
+```
+
+```{r chordogram, echo=FALSE}
+
+every_hour <-
+  get_tidy_audio_analysis("1WnqWQcWcuQbVzgE7ecfCY") %>%
+  compmus_align(sections, segments) %>%
+  select(sections) %>%
+  unnest(sections) %>%
+  mutate(
+    pitches =
+      map(segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      )
+  )
+
+every_hour %>% 
+  compmus_match_pitch_template(
+    chord_templates,
+    method = "euclidean",  
+    norm = "manhattan"     
+  ) %>%
+  ggplot(
+    aes(x = start + duration / 2, width = duration, y = name, fill = d)
+  ) +
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  theme_minimal() +
+  labs(
+    x = "Time (s)", 
+    y = "",
+    title = "Chordogram",
+    subtitle = "Every Hour - Kanye West")
+
+```
+
+
+*** 
+Chordogram
+
+
+### Conclusion
