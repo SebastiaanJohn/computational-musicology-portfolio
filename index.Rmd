@@ -378,7 +378,13 @@ plot(praise_god_timbre)
 
 ***
 
-plot info here
+As we saw previously, Kanye West had a significant transformation in music style since the start of his career. Hence, comparing a relatively new song with older work would be interesting. The following four plots show chroma and timbre-based self-similarity matrices of the songs _Through the Wire,_ from the 2004 album The College Dropout, and _Praise God_, from the 2021 album _Donda._ Listening to both songs, it is immediately apparent that they are very different in style. _Through the Wire_ sounds a lot cheerfuller than the more dark tone of _Praise God_.
+
+TODO: add plot details and conclusion
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4mmkhcEm1Ljy1U9nwtsxUo?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/32ZGcotUVtU3Zfz9lmM8Mi?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 
 ### Chordograms
