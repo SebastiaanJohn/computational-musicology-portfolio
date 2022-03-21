@@ -52,6 +52,40 @@ kanye <- head(kanye, -3)
 kanye <- kanye[!(kanye$album_release_date == "2005-01-01"), ]
 ```
 
+### How much do Kanye's albums vary in **tempo**?
+
+```{r, tempo-histogram, echo=FALSE}
+
+album_tempo <- kanye %>%
+  group_by(album_name, album_release_date) %>%
+  summarise(mean_tempo = mean(tempo))
+
+plt <- ggplot(
+  album_tempo,
+  aes(
+    x = reorder(album_name, -mean_tempo),
+    y = mean_tempo)) +
+  geom_bar(stat='identity') +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  labs(
+    x = "Album",
+    y = "Tempo (bpm)",
+    title = "Average tempo in beats per minute (bpm) of Kanye West's discography",
+    subtitle = "Ranked highest to lowest",
+    caption = "Data: Spotify"
+  ) +
+  theme(axis.text.x=element_text(angle=45, hjust=1))
+
+plt
+
+```
+
+***
+
+The plot on the left shows the average tempo in beats per minute (bpm) of Kanye West's albums ranked from highest to lowest. The graph shows that _Yeezus_ has the highest tempo with an average of 131 bpm. _Yeezus_ having the highest tempo is no surprise. What is a surprise is that the album _ye_ has the second-highest bpm. The album feels slower than most of his albums, especially _Graduation_. Thus it is an interesting candidate to examine further. In addition, the next slide will review _Yeezus_ to see if any outliers give this album such a high bpm.
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/7D2NdGvBHIavgLhmcwhluK?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
 ### **Introduction:** The Evolution of Kanye West
 
 **Introduction**
