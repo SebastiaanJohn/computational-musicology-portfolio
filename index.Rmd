@@ -17,12 +17,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, libraries, include=FALSE}
 library(tidyverse)
+library(tidymodels)
 library(dplyr)
 library(spotifyr)
 library(plotly)
 library(compmus)
 library(lubridate)
 library(ggthemr)
+library(ggdendro)
+library(heatmaply)
 ```
 
 ```{r, include=FALSE}
@@ -50,41 +53,126 @@ kanye <- head(kanye, -3)
 
 # remove duplicates from late registration album
 kanye <- kanye[!(kanye$album_release_date == "2005-01-01"), ]
+
+# change track uri to work with compmus package
+names(kanye)[names(kanye) == 'track_uri'] <- 'track.uri'
 ```
 
-### How much do Kanye's albums vary in **tempo**?
+```{r, preprocessing, echo=FALSE, include=FALSE}
 
-```{r, tempo-histogram, echo=FALSE}
+kanye_features <-
+  kanye %>%  # For your portfolio, change this to the name of your corpus.
+  add_audio_analysis() %>% 
+  mutate(
+    playlist = factor(album_name),
+    segments = map2(segments, key, compmus_c_transpose),
+    pitches =
+      map(
+        segments,
+        compmus_summarise, pitches,
+        method = "mean", norm = "manhattan"
+      ),
+    timbre =
+      map(
+        segments,
+        compmus_summarise, timbre,
+        method = "mean",
+      )
+  ) %>%
+  mutate(pitches = map(pitches, compmus_normalise, "clr")) %>%
+  mutate_at(vars(pitches, timbre), map, bind_rows) %>%
+  unnest(cols = c(pitches, timbre))
 
-album_tempo <- kanye %>%
-  group_by(album_name, album_release_date) %>%
-  summarise(mean_tempo = mean(tempo))
+kanye_recipe <-
+  recipe(
+    playlist ~
+      danceability +
+      energy +
+      loudness +
+      speechiness +
+      acousticness +
+      instrumentalness +
+      liveness +
+      valence +
+      tempo +
+      duration +
+      C + `C#|Db` + D + `D#|Eb` +
+      E + `F` + `F#|Gb` + G +
+      `G#|Ab` + A + `A#|Bb` + B +
+      c01 + c02 + c03 + c04 + c05 + c06 +
+      c07 + c08 + c09 + c10 + c11 + c12,
+    data = kanye_features,          # Use the same name as the previous block.
+  ) %>%
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors())      # Converts to z-scores.
+  # step_range(all_predictors())    # Sets range to [0, 1].
 
-plt <- ggplot(
-  album_tempo,
-  aes(
-    x = reorder(album_name, -mean_tempo),
-    y = mean_tempo)) +
-  geom_bar(stat='identity') +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  labs(
-    x = "Album",
-    y = "Tempo (bpm)",
-    title = "Average tempo in beats per minute (bpm) of Kanye West's discography",
-    subtitle = "Ranked highest to lowest",
-    caption = "Data: Spotify"
-  ) +
-  theme(axis.text.x=element_text(angle=45, hjust=1))
+get_pr <- function(fit) {
+  fit %>% 
+    conf_mat_resampled() %>% 
+    group_by(Prediction) %>% mutate(precision = Freq / sum(Freq)) %>% 
+    group_by(Truth) %>% mutate(recall = Freq / sum(Freq)) %>% 
+    ungroup() %>% filter(Prediction == Truth) %>% 
+    select(class = Prediction, precision, recall)
+}  
 
-plt
+get_conf_mat <- function(fit) {
+  outcome <- .get_tune_outcome_names(fit)
+  fit %>% 
+    collect_predictions() %>% 
+    conf_mat(truth = outcome, estimate = .pred_class)
+}  
+
+```
+
+```{r, cross-valdation, echo=FALSE, include=FALSE}
+kanye_cv <- kanye_features %>% vfold_cv(10)
+```
+
+### What are the most important features of Kanye West albums?
+
+```{r, echo=FALSE, include=FALSE}
+forest_model <-
+  rand_forest() %>%
+  set_mode("classification") %>% 
+  set_engine("ranger", importance = "impurity")
+
+kanye_forest <- 
+  workflow() %>% 
+  add_recipe(kanye_recipe) %>% 
+  add_model(forest_model) %>% 
+  fit_resamples(
+    kanye_cv, 
+    control = control_resamples(save_pred = TRUE)
+  )
+```
+
+```{r, echo=FALSE, include=FALSE}
+kanye_forest %>% get_pr()
+```
+
+```{r, echo=FALSE}
+workflow() %>% 
+  add_recipe(kanye_recipe) %>% 
+  add_model(forest_model) %>% 
+  fit(kanye_features) %>% 
+  pluck("fit", "fit", "fit") %>%
+  ranger::importance() %>% 
+  enframe() %>% 
+  mutate(name = fct_reorder(name, value)) %>% 
+  ggplot(aes(name, value)) + 
+  geom_col() + 
+  coord_flip() +
+  theme_minimal() +
+  labs(x = NULL, y = "Importance")
 
 ```
 
 ***
 
-The plot on the left shows the average tempo in beats per minute (bpm) of Kanye West's albums ranked from highest to lowest. The graph shows that _Yeezus_ has the highest tempo with an average of 131 bpm. _Yeezus_ having the highest tempo is no surprise. What is a surprise is that the album _ye_ has the second-highest bpm. The album feels slower than most of his albums, especially _Graduation_. Thus it is an interesting candidate to examine further. In addition, the next slide will review _Yeezus_ to see if any outliers give this album such a high bpm.
+We must determine the essential features of what makes a Kanye West album before we can train a KNN model. We can use a random forest model for this task. The results of the model are shown on the plot on the left. We see that valance is the most critical feature in classifying an album. Looking back at the first plot of this analysis that showed the valance score between albums, this seems fitting, as there was a steady decline from his first album to his last. Loudness appears like a decent feature as well, being the second most important. 
 
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/7D2NdGvBHIavgLhmcwhluK?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
 
 ### **Introduction:** The Evolution of Kanye West
 
@@ -563,6 +651,41 @@ TODO: add plot details and conclusion
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/32ZGcotUVtU3Zfz9lmM8Mi?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
+
+
+### How much do Kanye's albums vary in **tempo**?
+
+```{r, tempo-histogram, echo=FALSE}
+
+album_tempo <- kanye %>%
+  group_by(album_name, album_release_date) %>%
+  summarise(mean_tempo = mean(tempo))
+
+plt <- ggplot(
+  album_tempo,
+  aes(
+    x = reorder(album_name, -mean_tempo),
+    y = mean_tempo)) +
+  geom_bar(stat='identity') +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  labs(
+    x = "Album",
+    y = "Tempo (bpm)",
+    title = "Average tempo in beats per minute (bpm) of Kanye West's discography",
+    subtitle = "Ranked highest to lowest",
+    caption = "Data: Spotify"
+  ) +
+  theme(axis.text.x=element_text(angle=45, hjust=1))
+
+plt
+
+```
+
+***
+
+The plot on the left shows the average tempo in beats per minute (bpm) of Kanye West's albums ranked from highest to lowest. The graph shows that _Yeezus_ has the highest tempo with an average of 131 bpm. _Yeezus_ having the highest tempo is no surprise. What is a surprise is that the album _ye_ has the second-highest bpm. The album feels slower than most of his albums, especially _Graduation_. Thus it is an interesting candidate to examine further. In addition, the next slide will review _Yeezus_ to see if any outliers give this album such a high bpm.
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/7D2NdGvBHIavgLhmcwhluK?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 ### **Conclusion:** what makes the discography of Kanye West so unique?
 
