@@ -267,14 +267,6 @@ The loudness seems to somewhat stay consistent between all his tracks and albums
 
 Looking at the general spread of the data, we see that his music is very diverse in both valence and energy. This diversity could be an essential factor in making his music unique from album to album.
 
-### Loudness plot
-
-Plot here
-
-***
-
-Info here
-
 ### What makes Homecoming one of the most energetic and happy tracks? Let's examine with a **chromagram**.
 
 ```{r, echo=FALSE}
