@@ -619,15 +619,14 @@ album_tempo <- kanye %>%
 plt <- ggplot(
   album_tempo,
   aes(
-    x = reorder(album_name, -mean_tempo),
+    x = reorder(album_name, +album_release_date),
     y = mean_tempo)) +
   geom_bar(stat='identity') +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
   labs(
-    x = "Album",
+    x = "Album by release date",
     y = "Tempo (bpm)",
     title = "Average tempo in beats per minute (bpm) of Kanye West's discography",
-    subtitle = "Ranked highest to lowest",
     caption = "Data: Spotify"
   ) +
   theme(axis.text.x=element_text(angle=45, hjust=1))
@@ -638,7 +637,9 @@ plt
 
 ------------------------------------------------------------------------
 
-The plot on the left shows the average tempo in beats per minute (bpm) of Kanye West's albums ranked from highest to lowest. The graph shows that *Yeezus* has the highest tempo with an average of 131 bpm. *Yeezus* having the highest tempo is no surprise. What is a surprise is that the album *ye* has the second-highest bpm. The album feels slower than most of his albums, especially *Graduation*. Thus it is an interesting candidate to examine further. In addition, the next slide will review *Yeezus* to see if any outliers give this album such a high bpm.
+The plot on the left shows the average tempo in beats per minute (bpm) of Kanye West's albums ranked on release date. We can see that Kanye West's first album, *Graduation* has an average tempo of around 110 bpm. The average tempo per album then increases until a peak at the album *Yeezus* of about 131 bpm. From here on out, the tempo of the albums stays somewhat consistent, with a slight decrease over the years. Thus, Kanye has a higher average tempo than most hip-hop songs, with an average of around 85-95 bpm [(iZotope, 2021)](https://www.izotope.com/en/learn/using-different-tempos-to-make-beats-for-different-genres.html).
+
+_Yeezus_ having the highest tempo is no surprise. What is a surprise is that the album _ye_ has the second-highest bpm. The album feels slower than most of his albums, especially _Graduation_. Thus it is an interesting candidate to examine further. In addition, the next slide will review _Yeezus_ to see if any outliers give this album such a high bpm.
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/7D2NdGvBHIavgLhmcwhluK?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
 
