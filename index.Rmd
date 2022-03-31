@@ -129,49 +129,6 @@ get_conf_mat <- function(fit) {
 kanye_cv <- kanye_features %>% vfold_cv(10)
 ```
 
-### What are the most important features of Kanye West albums?
-
-```{r, echo=FALSE, include=FALSE}
-forest_model <-
-  rand_forest() %>%
-  set_mode("classification") %>% 
-  set_engine("ranger", importance = "impurity")
-
-kanye_forest <- 
-  workflow() %>% 
-  add_recipe(kanye_recipe) %>% 
-  add_model(forest_model) %>% 
-  fit_resamples(
-    kanye_cv, 
-    control = control_resamples(save_pred = TRUE)
-  )
-```
-
-```{r, echo=FALSE, include=FALSE}
-kanye_forest %>% get_pr()
-```
-
-```{r, echo=FALSE}
-workflow() %>% 
-  add_recipe(kanye_recipe) %>% 
-  add_model(forest_model) %>% 
-  fit(kanye_features) %>% 
-  pluck("fit", "fit", "fit") %>%
-  ranger::importance() %>% 
-  enframe() %>% 
-  mutate(name = fct_reorder(name, value)) %>% 
-  ggplot(aes(name, value)) + 
-  geom_col() + 
-  coord_flip() +
-  theme_minimal() +
-  labs(x = NULL, y = "Importance")
-
-```
-
-------------------------------------------------------------------------
-
-We must determine the essential features of what makes a Kanye West album before we can train a KNN model. We can use a random forest model for this task. The results of the model are shown on the plot on the left. We see that valance is the most critical feature in classifying an album. Looking back at the first plot of this analysis that showed the valance score between albums, this seems fitting, as there was a steady decline from his first album to his last. Loudness appears like a decent feature as well, being the second most important.
-
 ### **Introduction:** The Evolution of Kanye West
 
 #### **Introduction**
@@ -180,13 +137,13 @@ The subject of this portfolio is the discography of the rapper, producer, and fa
 
 #### **Discography**
 
-**The College Dropout** is Kanye's first studio album, released on February 10, 2004. It has received critical acclaim, with many music critics praising West's production skills and provocatively positive lyrics. The album has been cited as one of the greatest hip-hop albums of all time.
+**The College Dropout** is Kanye's first studio album, released on February 10, 2004. It has received critical acclaim, with many music critics praising Kanye's production skills and provocatively positive lyrics. The album has been cited as one of the greatest hip-hop albums of all time.
 
-**Late Registration** is the second studio album released on August 30, 2005. The album features some of Kanye West's most iconic songs, including "Gold Digger," "Touch the Sky," and "Heard 'Em Say." Overall, the album is a masterful blend of West's signature beats and honest lyrics, and it remains one of his most popular releases to date.
+**Late Registration** is the second studio album released on August 30, 2005. The album features some of Kanye West's most iconic songs, including "Gold Digger," "Touch the Sky," and "Heard 'Em Say." Overall, the album is a masterful blend of Kanye's signature beats and honest lyrics, and it remains one of his most popular releases to date.
 
-Kanye's third studio album, **Graduation**, was released on September 11, 2007. Graduation featured a more pop-oriented sound than West's previous albums and was acclaimed for its experimental production. It was a critical and commercial success, solidifying Kanye West as one of the biggest names in music.
+Kanye's third studio album, **Graduation**, was released on September 11, 2007. Graduation featured a more pop-oriented sound than Kanye's previous albums and was acclaimed for its experimental production. It was a critical and commercial success, solidifying Kanye West as one of the biggest names in music.
 
-**808s & Heartbreak** is his fourth studio album, released on November 24, 2008. The album was a radical departure from his previous work, with West incorporating elements of R&B and synth-pop into his signature hip-hop sound. The album was also notable for its deeply personal lyrics, which were inspired by the death of Kanye's mother and the end of his engagement.
+**808s & Heartbreak** is his fourth studio album, released on November 24, 2008. The album was a radical departure from his previous work, with Kanye incorporating elements of R&B and synth-pop into his signature hip-hop sound. The album was also notable for its deeply personal lyrics, which were inspired by the death of Kanye's mother and the end of his engagement.
 
 Kanye West released his fifth studio album called **My Beautiful Dark Twisted Fantasy** on November 22, 2010. Both fans and critics highly anticipated the album, and it did not disappoint. West drew from various influences, including classical music, Trip Hop, and soul. The result was an ambitious and experimental work that pushed the boundaries of hip hop.
 
@@ -306,6 +263,15 @@ While using valence individually provided a helpful understanding of the progres
 As shown on the plot, most of the tracks on the *ye* album are low in energy and valence, which makes sense when you consider it's about his mental health. On the contrary, *Watch the Throne*, the collaboration album with rapper *Jay-Z*, has higher energy and valence scores. Additionally, there seem to be some outliers, such as *Donda Chant* and *All Of The Lights,* which have extremely low energy scores. Furthermore, *I Love Kanye* has a very high valence score. Finally, the track *homecoming* has both extremely high valence and energy scores. All those tracks are exciting candidates to analyze further to see what features make these scores so high. We will do this in the following sections.
 
 Looking at the general spread of the data, we see that his music is very diverse in both valence and energy. This diversity could be an essential factor in making his music unique from album to album.
+
+
+### Loudness plot
+
+Plot here
+
+***
+
+Info here
 
 ### What makes Homecoming one of the most energetic and happy tracks? Let's examine with a **chromagram**.
 
@@ -683,6 +649,49 @@ The plot on the left shows the average tempo in beats per minute (bpm) of Kanye 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/7D2NdGvBHIavgLhmcwhluK?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
 
 </iframe>
+
+### What are the most important features of Kanye West albums?
+
+```{r, echo=FALSE, include=FALSE}
+forest_model <-
+  rand_forest() %>%
+  set_mode("classification") %>% 
+  set_engine("ranger", importance = "impurity")
+
+kanye_forest <- 
+  workflow() %>% 
+  add_recipe(kanye_recipe) %>% 
+  add_model(forest_model) %>% 
+  fit_resamples(
+    kanye_cv, 
+    control = control_resamples(save_pred = TRUE)
+  )
+```
+
+```{r, echo=FALSE, include=FALSE}
+kanye_forest %>% get_pr()
+```
+
+```{r, echo=FALSE}
+workflow() %>% 
+  add_recipe(kanye_recipe) %>% 
+  add_model(forest_model) %>% 
+  fit(kanye_features) %>% 
+  pluck("fit", "fit", "fit") %>%
+  ranger::importance() %>% 
+  enframe() %>% 
+  mutate(name = fct_reorder(name, value)) %>% 
+  ggplot(aes(name, value)) + 
+  geom_col() + 
+  coord_flip() +
+  theme_minimal() +
+  labs(x = NULL, y = "Importance")
+
+```
+
+------------------------------------------------------------------------
+
+We must determine the essential features of what makes a Kanye West album before we can train a KNN model. We can use a random forest model for this task. The results of the model are shown on the plot on the left. We see that valance is the most critical feature in classifying an album. Looking back at the first plot of this analysis that showed the valance score between albums, this seems fitting, as there was a steady decline from his first album to his last. Loudness appears like a decent feature as well, being the second most important.
 
 ### **Conclusion:** what makes the discography of Kanye West so unique?
 
