@@ -227,7 +227,7 @@ This continuous decline in valence could be an essential component in why every 
 
 </iframe>
 
-### What can **valance** and **energy** tell us about the **diversity** of tracks in Kanye West's discography?
+### What can **valance**, **energy** and **loudness** tell us about the **diversity** of tracks in Kanye West's discography?
 
 ```{r, echo=FALSE}
 
@@ -236,13 +236,14 @@ p <- ggplot(
   aes(
     x = valence,
     y = energy,
+    size = loudness,
     color = album_name,
     label = track_name,
-    alpha = 0.5)
+    alpha = 0.3)
   ) +
   geom_point() +
   labs(
-    title = "Distribution of energy and valence",
+    title = "Distribution of energy, valence and loudness",
     x = "Valence",
     y = "Energy",
     caption = "Data: Spotify"
@@ -258,12 +259,13 @@ fig
 
 The last plot shows that his music gradually becomes sadder as his career progresses. Let's examine the individual tracks that make up his albums now. The following graph shows all the individual tracks plotted against valence and energy. The color denotes the track's album.
 
-While using valence individually provided a helpful understanding of the progression of his albums, combing it with **energy** will be more beneficial for individual tracks. Spotify describes the energy metric as a perceptual measurement of intensity and activity. Therefore, a track with low energy and valance can be characterized as more sad than a track with high valence and energy.
+While using **valence** individually provided a helpful interpretation of the progression of his albums, combing it with **energy** and **loudness** will be more valuable for individual tracks. Spotify describes the energy metric as a perceptual measurement of intensity and activity. Therefore, a track with low energy and valance can be characterized as more sad than a track with high valence and energy. Furthermore, Spotify describes the loudness of a track in decibels (dB). A sound's loudness is the primary psychological correlate of physical strength (amplitude), with a range between -60 to 0dB. Loudness is plotted as the size of the points here. 
 
-As shown on the plot, most of the tracks on the *ye* album are low in energy and valence, which makes sense when you consider it's about his mental health. On the contrary, *Watch the Throne*, the collaboration album with rapper *Jay-Z*, has higher energy and valence scores. Additionally, there seem to be some outliers, such as *Donda Chant* and *All Of The Lights,* which have extremely low energy scores. Furthermore, *I Love Kanye* has a very high valence score. Finally, the track *homecoming* has both extremely high valence and energy scores. All those tracks are exciting candidates to analyze further to see what features make these scores so high. We will do this in the following sections.
+As shown on the plot, most of the tracks on the _ye_ album are low in energy and valence, which makes sense when you consider it's about his mental health. On the contrary, _Watch the Throne_, the collaboration album with rapper _Jay-Z_, has higher energy and valence scores. Additionally, there seem to be some outliers, such as _Donda Chant_ and _All Of The Lights,_ which have extremely low energy scores. Furthermore, _I Love Kanye_ has a very high valence score. Finally, the track _homecoming_ has both extremely high valence and energy scores. All those tracks are exciting candidates to analyze further to see what features make these scores so high. We will do this in the following sections. 
+
+The loudness seems to somewhat stay consistent between all his tracks and albums. There are a couple of outliers, but those are primarily skits in between songs. These outliers also explain why the College Dropout scores the lowest in loudness, as it has the most intermissions and skits from all the albums.
 
 Looking at the general spread of the data, we see that his music is very diverse in both valence and energy. This diversity could be an essential factor in making his music unique from album to album.
-
 
 ### Loudness plot
 
