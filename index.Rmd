@@ -301,7 +301,7 @@ homecoming %>%
 
 ------------------------------------------------------------------------
 
-TODO: add info
+**Homecoming** is one of the most iconic tracks from Kanye's first studio album, *Graduation*. The track, which features samples of M83's "Late Night Tales," is an ode to Kanye's hometown of Chicago. Examining the chromagram shows that the song is primarily grounded around the C note. Furthermore, we also see some energy around the E and F notes. When you listen to the track, it sound's quite happy, which makes sense seeing the primary notes in the chromagram. However, as with most rap songs, the plot is highly scattered.
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4iz9lGMjU1lXS51oPmUmTe?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
 
@@ -596,7 +596,7 @@ plot(praise_god_timbre)
 
 ------------------------------------------------------------------------
 
-As we saw previously, Kanye West had a significant transformation in music style since the start of his career. Hence, comparing a relatively new song with older work would be interesting. The following four plots show chroma and timbre-based self-similarity matrices of the songs *Through the Wire,* from the 2004 album The College Dropout, and *Praise God*, from the 2021 album *Donda.* Listening to both songs, it is immediately apparent that they are very different in style. *Through the Wire* sounds a lot cheerfuller than the more dark tone of *Praise God*.
+As we saw previously, Kanye West had a significant transformation in music style since the start of his career. Hence, comparing a relatively new song with older work would be interesting. The following four plots show chroma and timbre-based self-similarity matrices of the songs *Through the Wire,* from the 2004 album The College Dropout, and *Praise God*, from the 2021 album *Donda.* Listening to both songs, it is immediately apparent that they are very different in style. *Through the Wire* sounds a lot cheerfuller than the more dark tone of *Praise God*. One can immediately notice that both songs are wildly dissimilar in both chroma en timbre.
 
 TODO: add plot details and conclusion
 
