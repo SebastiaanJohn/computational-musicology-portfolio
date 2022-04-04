@@ -678,7 +678,13 @@ workflow() %>%
   geom_col() + 
   coord_flip() +
   theme_minimal() +
-  labs(x = NULL, y = "Importance")
+  labs(
+    x = "Feature", 
+    y = "Importance",
+    title = "What makes a Kanye West song?",
+    subtitle = "Most essential features of a Kanye West song",
+    caption = "Data: Spotify"
+    )
 
 ```
 
