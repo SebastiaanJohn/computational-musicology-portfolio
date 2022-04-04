@@ -643,7 +643,7 @@ _Yeezus_ having the highest tempo is no surprise. What is a surprise is that the
 
 </iframe>
 
-### What are the most important features of Kanye West albums?
+### What are the most important **features** of Kanye West albums?
 
 ```{r, echo=FALSE, include=FALSE}
 forest_model <-
@@ -690,8 +690,8 @@ workflow() %>%
 
 ------------------------------------------------------------------------
 
-We must determine the essential features of what makes a Kanye West album before we can train a KNN model. We can use a random forest model for this task. The results of the model are shown on the plot on the left. We see that valance is the most critical feature in classifying an album. Looking back at the first plot of this analysis that showed the valance score between albums, this seems fitting, as there was a steady decline from his first album to his last. Loudness appears like a decent feature as well, being the second most important.
+The central question that this analysis is trying to answer is what makes Kanye West's discography so unique from one another? The previous plots hint that the changing mindset is one of the most significant factors in explaining this uniqueness. Therefore, a **random forest model** will be trained to determine if this hypothesis is true. The results of the model are shown on the plot on the left. We see that valance is the most critical feature in classifying an album. Looking back at the first plot of this analysis that showed the valance score between albums, this seems fitting, as there was a steady decline from his first album to his last. Loudness appears like a decent feature as well, being the second most important.
 
 ### **Conclusion:** what makes the discography of Kanye West so unique?
 
-Conclusion goes here
+This analysis started with the assumption that the instruments and tempo would be the most significant factor in explaining the uniqueness of Kanye West's discography. However, the graphs demonstrated that this is not true: tempo is consistent between his albums. Using a random forest model showed that valance is the most crucial factor. This finding makes a lot of sense when looking at the first plots of this analysis, where the valance was plotted over Kanye's career and against energy and loudness. Therefore, the answer to the question: what makes Kanye West's discography so unique from one another is the change in valance. Kanye's turbulent life correlates to the change in album style, which results in different unique-sounding albums. 
